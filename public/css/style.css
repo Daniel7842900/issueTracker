@@ -1,0 +1,50 @@
+.sidebar {
+    width: 200px;
+    background-color: rgb(128, 128, 128);
+    padding: 20px 0 0 0;
+    height: 100vh;
+    position: relative;
+}
+
+.sidebar img {
+    border-radius: 50px;
+}
+
+.sidebar h5 {
+    color: white;
+    margin-top: 10px;
+}
+
+.items-container {
+}
+
+.menu-item {
+    width: 200px;
+    padding: 10px 0 10px 20px;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: lightgray;
+}
+
+.items-container a {
+    text-decoration: none;
+    color: white;
+}
+
+#header-manage-member {
+    padding: 0 15px;
+    display: flex;
+}
+
+#header-manage-member h5 {
+    font-size: 2em;
+}
+
+#role-assgin-button {
+    float: right;
+    width: 100px;
+    padding: 0 20px;
+}
