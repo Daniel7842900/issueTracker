@@ -27,9 +27,7 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function show($id) {
-        $user = Auth::user()->name;
-
-        //return view('home/show', )
+    public function show() {
+        
     }
 }

@@ -24,7 +24,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        $users = User::latest()->get();
+
+
+        //echo $users;
+
+        return view('user.index', [
+            'users' => $users,
+        ]);
     }
 
     

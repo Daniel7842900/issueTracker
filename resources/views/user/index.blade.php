@@ -4,34 +4,38 @@
     <div id="header-manage-member" class="col-md-4">
         <h5>Manage Member</h5>
     </div>
-    <div class="container wrapper-container">
+    <div class="container wrapper-member-role">
         <div class="row">
             <div class="col-md-5">
-                <div class="card">
-                    <div>
-                        <span>Select Member</span>
+                <form action="/user" method="POST">
+                    <div class="card">
+                        <fieldset>
+                            <div>
+                                <label>Select Member</label>
+                            </div>
+                            <hr>
+                            @foreach($users as $user)
+                            <div>
+                                <input type="checkbox" name="users[]" value="{{ $user->name }}">{{ $user->name }}
+                            </div>
+                            @endforeach
+                        </fieldset>
                     </div>
-                    <hr>
-                    <div>
-                        <p>Daniel</p>
-                        <p>Klarissa</p>
-                        <p>Keenan</p>
-                        <p>Kevinn</p>
-                        <p>Luna</p>
+                    <div class="card">
+                        <fieldset>
+                            <div>
+                                <label>Select Role</label>
+                            </div>
+                            <hr>
+                            <div>
+                                <input type="checkbox" name="role" value="admin">Administrator<br>
+                                <input type="checkbox" name="role" value="manager">Project manager<br>
+                                <input type="checkbox" name="role" value="user">General user<br>
+                            </div>
+                        </fieldset>
                     </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <span>
-                            Select Role
-                        </span>
-                    </div>
-                    <hr>
-                    <div>
-                        <p>Project Manager</p>
-                        <p>General Developer</p>
-                    </div>
-                </div>
+                    <input type="submit" value="Assign" id="role-assgin-button">
+                </form>
             </div>
             <div class="col-md-7">
                 <div class="card">
@@ -51,7 +55,6 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <button id="role-assgin-button">Assign</button>
             </div>
         </div>
     </div>
