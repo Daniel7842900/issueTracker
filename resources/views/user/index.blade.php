@@ -7,7 +7,9 @@
     <div class="container wrapper-member-role">
         <div class="row">
             <div class="col-md-5">
-                <form action="/user" method="POST">
+                <form action="update" method="POST">
+                    @csrf
+                    
                     <div class="card">
                         <fieldset>
                             <div>
@@ -16,7 +18,7 @@
                             <hr>
                             @foreach($users as $user)
                             <div>
-                                <input type="checkbox" name="users[]" value="{{ $user->name }}">{{ $user->name }}
+                                <input type="checkbox" name="userId" value="{{ $user->id }}">{{ $user->name }}
                             </div>
                             @endforeach
                         </fieldset>

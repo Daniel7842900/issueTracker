@@ -21,8 +21,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home/{id}', 'HomeController@show')->name('home.show')->middleware('auth');
-
 Route::get('/user', 'UserController@index')->name('user.index');
+
+// Route::post('/user', 'UserController@update')->name('user.update');
+
+//Route::resource('user', 'UserController');
+
+Route::post('update', 'UserController@update')->name('user.update');
 
 Route::get('/project', 'ProjectController@index')->name('project.index');
