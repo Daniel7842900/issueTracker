@@ -36,16 +36,15 @@ class UserController extends Controller
 
     public function update(Request $request) {
 
-        //$user = User::findOrFail($id);
-
-
-
-        echo User::where('id', $request->userId)
+        User::where('id', $request->userId)
         ->update(['role'=>$request->role]);
         //print_r($request->input());
 
+        // $user = User::find($request->userId);
+        // $user->role = $request->role;
+        // $user->save();
 
-
+        return redirect('/user');
     }
 
     

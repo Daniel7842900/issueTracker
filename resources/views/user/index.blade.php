@@ -7,7 +7,7 @@
     <div class="container wrapper-member-role">
         <div class="row">
             <div class="col-md-5">
-                <form action="update" method="POST">
+                <form action="{{route('user.update')}}" method="POST">
                     @csrf
                     
                     <div class="card">
@@ -42,9 +42,7 @@
             <div class="col-md-7">
                 <div class="card">
                     <div>
-                        <span>
-                            Registered Users
-                        </span>
+                        <label for="">Registered Users</label>
                     </div>
                     <hr>
                     <div>
@@ -54,6 +52,20 @@
                         <span>Assigned Project</span>
                         <span>Registered Date</span>
                     </div>
+                    <hr>
+                    @foreach($users as $user)
+                    <div>
+                        <span>{{ $user->name }}</span>
+                        <span>{{ $user->email }}</span>
+                        @if($user->role == null)
+                            <span>Not Assigned</span>
+                        @else($user->role != null)
+                            <span>{{ $user->role }}</span>
+                        @endif
+                        <span>{{ $user->project_id }}</span>
+                        <span>{{ $user->created_at }}</span>
+                    </div>
+                    @endforeach
                 </div>
             </div>
             <div class="col-md-5">

@@ -27,6 +27,6 @@ Route::get('/user', 'UserController@index')->name('user.index');
 
 //Route::resource('user', 'UserController');
 
-Route::post('update', 'UserController@update')->name('user.update');
+Route::post('/user', 'UserController@update')->name('user.update');
 
 Route::get('/project', 'ProjectController@index')->name('project.index');
