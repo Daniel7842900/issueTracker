@@ -9,7 +9,6 @@
             <div class="col-md-5">
                 <form action="{{route('user.update')}}" method="POST">
                     @csrf
-                    
                     <div class="card">
                         <fieldset>
                             <div>
