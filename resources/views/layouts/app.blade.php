@@ -88,7 +88,7 @@
                 <a href="/user">
                     <h6 class="menu-item"><i class="fas fa-users"></i>Manage Member</h6>
                 </a>
-                <a href="#">
+                <a href="/project">
                     <h6 class="menu-item"><i class="fas fa-tasks"></i>Projects</h6>
                 </a>
                 <a href="#">

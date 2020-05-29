@@ -30,3 +30,7 @@ Route::get('/user', 'UserController@index')->name('user.index');
 Route::post('/user', 'UserController@update')->name('user.update');
 
 Route::get('/project', 'ProjectController@index')->name('project.index');
+
+Route::get('/project/create', 'ProjectController@create')->name('project.create');
+
+Route::post('/project', 'ProjectController@store')->name('project.store');

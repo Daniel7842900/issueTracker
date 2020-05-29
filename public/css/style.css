@@ -48,3 +48,38 @@
     width: 100px;
     padding: 0 20px;
 }
+
+.create-project {
+    background: #f7f7f7;
+    padding: 20px;
+}
+
+.create-project label,
+.create-project select {
+    display: block;
+}
+
+.create-project label {
+    margin-top: 30px;
+}
+
+.create-project select {
+    padding: 8px;
+    width: 200px;
+}
+
+.create-project input[type="checkbox"] {
+    margin: 10px;
+}
+
+.create-project input[type="submit"] {
+    background: #5e2195;
+    padding: 8px 20px;
+    color: #fff;
+    border: 0;
+    margin-top: 20px;
+}
+
+.create-project fieldset {
+    border: 0;
+}
