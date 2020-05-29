@@ -29,12 +29,17 @@ class UserController extends Controller
     {
 
         $users = DB::table('users')
-                    ->join('roles', 'roles.id', '=', 'users.role_id')
-                    ->select('*')
+                    ->select('users.id', 'users.name')
                     ->get();
+
+        $users_roles = DB::table('users')
+                        ->join('roles', 'roles.id', '=', 'users.role_id')
+                        ->select('*')
+                        ->get();
 
         return view('user.index', [
             'users' => $users,
+            'users_roles' => $users_roles,
         ]);
     }
 

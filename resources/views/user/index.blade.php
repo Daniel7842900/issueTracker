@@ -52,25 +52,25 @@
                         <span>Registered Date</span>
                     </div>
                     <hr>
-                    @foreach($users as $user)
+                    @foreach($users_roles as $user_role)
                     <div>
-                        <span>{{ $user->name }}</span>
-                        <span>{{ $user->email }}</span>
-                        @if($user->role_id == null)
+                        <span>{{ $user_role->name }}</span>
+                        <span>{{ $user_role->email }}</span>
+                        @if($user_role->role_id == null)
                             <span>Not Assigned</span>
-                        @elseif($user->role_id != null)
+                        @elseif($user_role->role_id != null)
                             
-                                @if($user->role_id == 1)
-                                <span>{{ $user->type }}</span>
-                                @elseif($user->role_id == 2)
-                                <span>{{ $user->type }}</span>
-                                @elseif($user->role_id == 3)
-                                <span>{{ $user->type }}</span>
+                                @if($user_role->role_id == 1)
+                                <span>{{ $user_role->type }}</span>
+                                @elseif($user_role->role_id == 2)
+                                <span>{{ $user_role->type }}</span>
+                                @elseif($user_role->role_id == 3)
+                                <span>{{ $user_role->type }}</span>
                                 @endif
                             
                         @endif
-                        <span>{{ $user->project_id }}</span>
-                        <span>{{ $user->created_at }}</span>
+                        <span>...</span>
+                        <span>{{ $user_role->created_at }}</span>
                     </div>
                     @endforeach
                 </div>
