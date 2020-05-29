@@ -28,7 +28,7 @@ class ProjectController extends Controller
     {
         $projects = Project::latest()->get();
 
-        $members = DB::select('select name from users where role = ?', ['manager']);
+        // $members = DB::select('select name from users where role = ?', ['manager']);
         //echo $users;
 
         return view('project.index', [
@@ -38,10 +38,10 @@ class ProjectController extends Controller
 
     public function create() {
 
-        $managers = DB::select('select name, id from users where role = ?', ['manager']);
+        $managers = DB::select('select name, id from roles where id = ?', [2]);
 
         //var_dump($managers);
-        $users = DB::select('select * from users where role = ?', ['user']);
+        $users = DB::select('select * from roles where id = ?', [3]);
 
         //error_log($users);
         return view('project.create', [

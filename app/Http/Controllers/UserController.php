@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Role;
+
 
 class UserController extends Controller
 {
@@ -24,10 +27,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->get();
 
-
-        //echo $users;
+        $users = DB::table('users')
+                    ->join('roles', 'roles.id', '=', 'users.role_id')
+                    ->select('*')
+                    ->get();
 
         return view('user.index', [
             'users' => $users,
@@ -37,7 +41,7 @@ class UserController extends Controller
     public function update(Request $request) {
 
         User::where('id', $request->userId)
-        ->update(['role'=>$request->role]);
+        ->update(['role_id'=>$request->role_id]);
         //print_r($request->input());
 
         // $user = User::find($request->userId);

@@ -29,9 +29,9 @@
                             </div>
                             <hr>
                             <div>
-                                <input type="checkbox" name="role" value="admin">Administrator<br>
-                                <input type="checkbox" name="role" value="manager">Project manager<br>
-                                <input type="checkbox" name="role" value="user">General user<br>
+                                <input type="checkbox" name="role_id" value="1">Administrator<br>
+                                <input type="checkbox" name="role_id" value="2">Project manager<br>
+                                <input type="checkbox" name="role_id" value="3">General user<br>
                             </div>
                         </fieldset>
                     </div>
@@ -56,10 +56,18 @@
                     <div>
                         <span>{{ $user->name }}</span>
                         <span>{{ $user->email }}</span>
-                        @if($user->role == null)
+                        @if($user->role_id == null)
                             <span>Not Assigned</span>
-                        @else($user->role != null)
-                            <span>{{ $user->role }}</span>
+                        @elseif($user->role_id != null)
+                            
+                                @if($user->role_id == 1)
+                                <span>{{ $user->type }}</span>
+                                @elseif($user->role_id == 2)
+                                <span>{{ $user->type }}</span>
+                                @elseif($user->role_id == 3)
+                                <span>{{ $user->type }}</span>
+                                @endif
+                            
                         @endif
                         <span>{{ $user->project_id }}</span>
                         <span>{{ $user->created_at }}</span>
