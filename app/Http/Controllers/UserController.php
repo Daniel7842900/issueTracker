@@ -28,17 +28,19 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = DB::table('users')
-                    ->select('users.id', 'users.name')
-                    ->get();
+        // $users = DB::table('users')
+        //             ->select('users.id', 'users.name')
+        //             ->get();
 
         $users_roles = DB::table('users')
-                        ->join('roles', 'roles.id', '=', 'users.role_id')
-                        ->select('*')
+                        ->leftjoin('roles', 'roles.id', '=', 'users.role_id')
+                        ->select('users.name', 'users.id', 'users.email', 'roles.type', 'users.role_id')
                         ->get();
 
+        echo $users_roles;
+
         return view('user.index', [
-            'users' => $users,
+            // 'users' => $users,
             'users_roles' => $users_roles,
         ]);
     }
@@ -47,7 +49,7 @@ class UserController extends Controller
 
         User::where('id', $request->userId)
         ->update(['role_id'=>$request->role_id]);
-        //print_r($request->input());
+        print_r($request->input());
 
         // $user = User::find($request->userId);
         // $user->role = $request->role;

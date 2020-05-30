@@ -38,10 +38,18 @@ class ProjectController extends Controller
 
     public function create() {
 
-        $managers = DB::select('select name, id from roles where id = ?', [2]);
-
+        $managers = DB::table('users')
+                        ->leftjoin('roles', 'users.role_id', 'roles.id')
+                        ->select('*')
+                        ->where('users.role_id', '=', 2)
+                        ->get();
+        
         //var_dump($managers);
-        $users = DB::select('select * from roles where id = ?', [3]);
+        $users = DB::table('users')
+                    ->leftjoin('roles', 'users.role_id', 'roles.id')
+                    ->select('*')
+                    ->where('users.role_id', '=', 3)
+                    ->get();
 
         //error_log($users);
         return view('project.create', [

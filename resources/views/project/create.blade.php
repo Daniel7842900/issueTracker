@@ -19,9 +19,13 @@
                     </select>
                     <fieldset>
                         <label for="member">Choose Members:</label>
-                        @foreach($users as $user)
-                        <input type="checkbox" name="members[]" value="{{ $user->id }}">{{ $user->name }}<br/>
-                        @endforeach
+                        @if($users->isEmpty())
+                            <p>No Member is Available</p>
+                        @else
+                            @foreach($users as $user)
+                            <input type="checkbox" name="members[]" value="{{ $user->id }}">{{ $user->name }}<br/>
+                            @endforeach
+                        @endif
                     </fieldset>
                     <input type="submit" value="Create a new project">
                 </form>

@@ -15,9 +15,9 @@
                                 <label>Select Member</label>
                             </div>
                             <hr>
-                            @foreach($users as $user)
+                            @foreach($users_roles as $user_role)
                             <div>
-                                <input type="checkbox" name="userId" value="{{ $user->id }}">{{ $user->name }}
+                                <input type="checkbox" name="userId" value="{{ $user_role->id }}">{{ $user_role->name }}
                             </div>
                             @endforeach
                         </fieldset>
@@ -49,7 +49,6 @@
                         <span>Email</span>
                         <span>Role</span>
                         <span>Assigned Project</span>
-                        <span>Registered Date</span>
                     </div>
                     <hr>
                     @foreach($users_roles as $user_role)
@@ -70,7 +69,6 @@
                             
                         @endif
                         <span>...</span>
-                        <span>{{ $user_role->created_at }}</span>
                     </div>
                     @endforeach
                 </div>
