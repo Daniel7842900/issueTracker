@@ -58,15 +58,13 @@
                         @if($user_role->role_id == null)
                             <span>Not Assigned</span>
                         @elseif($user_role->role_id != null)
-                            
-                                @if($user_role->role_id == 1)
-                                <span>{{ $user_role->type }}</span>
-                                @elseif($user_role->role_id == 2)
-                                <span>{{ $user_role->type }}</span>
-                                @elseif($user_role->role_id == 3)
-                                <span>{{ $user_role->type }}</span>
-                                @endif
-                            
+                            @if($user_role->role_id == 1)
+                            <span>{{ $user_role->type }}</span>
+                            @elseif($user_role->role_id == 2)
+                            <span>{{ $user_role->type }}</span>
+                            @elseif($user_role->role_id == 3)
+                            <span>{{ $user_role->type }}</span>
+                            @endif
                         @endif
                         <span>...</span>
                     </div>

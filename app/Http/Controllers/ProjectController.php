@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Project;
 use App\User;
+use App\Role;
 
 class ProjectController extends Controller
 {
@@ -40,14 +41,14 @@ class ProjectController extends Controller
 
         $managers = DB::table('users')
                         ->leftjoin('roles', 'users.role_id', 'roles.id')
-                        ->select('*')
+                        ->select('users.id', 'users.name')
                         ->where('users.role_id', '=', 2)
                         ->get();
         
         //var_dump($managers);
         $users = DB::table('users')
                     ->leftjoin('roles', 'users.role_id', 'roles.id')
-                    ->select('*')
+                    ->select('users.id', 'users.name')
                     ->where('users.role_id', '=', 3)
                     ->get();
 
@@ -60,12 +61,33 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request) {
-        print_r($request->input());
+        //print_r($request->input());
 
-        // $project = new Project();
+        $project = new Project();
 
-        // $project->name = request('proj_name');
-        // $project->desc = request('proj_desc');
+        $project->name = request('proj_name');
+        $project->desc = request('proj_desc');
+
+        $project->save();
+        $currentId = $project->id;
+
+        $manager = request('manager');
+        $users = request('members');
+        
+        // echo "this is id";
+        // echo($currentId);
+        // echo "this is cur proj";
+        // echo($current_Project);
+        // var_dump($users);
+
+        foreach($users as $user) {
+            echo "this is single user";
+            echo $user;
+            $current_Project = Project::findOrFail($currentId);
+            $current_Project->users()->attach($user);
+        }
+
+        
 
         // $project->save();
 

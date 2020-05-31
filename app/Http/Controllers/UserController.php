@@ -37,7 +37,7 @@ class UserController extends Controller
                         ->select('users.name', 'users.id', 'users.email', 'roles.type', 'users.role_id')
                         ->get();
 
-        echo $users_roles;
+        //echo $users_roles;
 
         return view('user.index', [
             // 'users' => $users,
