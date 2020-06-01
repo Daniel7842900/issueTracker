@@ -27,11 +27,21 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::latest()->get();
+        // $projects = DB::table('projects')
+        //                 ->join('project_user', 'projects.id', 'project_user.project_id')
+        //                 ->join('users', 'users.id', 'project_user.user_id')
+        //                 ->select('projects.name as project_name', 'projects.desc', 'users.name as user_name', 'users.id')
+        //                 ->get();
 
-        // $members = DB::select('select name from users where role = ?', ['manager']);
-        //echo $users;
+        // $projects = DB::table('projects')
+        //                 ->get();
 
+        $projects = Project::with(['users'])->get();
+
+        //$test = Project::first();
+
+        //dd($projects);
+        
         return view('project.index', [
             'projects' => $projects,
         ]);
@@ -91,7 +101,7 @@ class ProjectController extends Controller
 
         // $project->save();
 
-        //return redirect('/project')->with('mssg', 'Project is created');
+        return redirect('/project')->with('mssg', 'Project is created');
 
 
     }

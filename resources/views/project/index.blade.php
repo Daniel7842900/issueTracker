@@ -25,9 +25,10 @@
                         <span>{{ $project->name }}</span>
                         <span>{{ $project->desc }}</span>
                         <span>
-                            
                             <select name="proj_member" id="proj_member">
-                                <option value=""></option>
+                                @foreach($project->users as $user)
+                                <option value="">{{ $user->name }}</option>
+                                @endforeach
                             </select>
                         </span>
                         <span>Created Date</span>
