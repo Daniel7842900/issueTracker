@@ -31,7 +31,7 @@
                                 @endforeach
                             </select>
                         </span>
-                        <span>Created Date</span>
+                        <span>{{ $project->created_at }}</span>
                     </div>
                     @endforeach
                 </div>

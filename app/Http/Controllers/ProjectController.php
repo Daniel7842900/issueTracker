@@ -27,20 +27,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // $projects = DB::table('projects')
-        //                 ->join('project_user', 'projects.id', 'project_user.project_id')
-        //                 ->join('users', 'users.id', 'project_user.user_id')
-        //                 ->select('projects.name as project_name', 'projects.desc', 'users.name as user_name', 'users.id')
-        //                 ->get();
-
-        // $projects = DB::table('projects')
-        //                 ->get();
-
         $projects = Project::with(['users'])->get();
 
-        //$test = Project::first();
-
-        //dd($projects);
+        //dd($projects->users);
         
         return view('project.index', [
             'projects' => $projects,
@@ -89,11 +78,13 @@ class ProjectController extends Controller
         // echo "this is cur proj";
         // echo($current_Project);
         // var_dump($users);
+        $current_Project = Project::findOrFail($currentId);
+        $current_Project->users()->attach($manager);
 
         foreach($users as $user) {
             echo "this is single user";
             echo $user;
-            $current_Project = Project::findOrFail($currentId);
+            // $current_Project = Project::findOrFail($currentId);
             $current_Project->users()->attach($user);
         }
 

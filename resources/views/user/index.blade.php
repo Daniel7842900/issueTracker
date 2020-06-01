@@ -66,7 +66,11 @@
                             <span>{{ $user_role->type }}</span>
                             @endif
                         @endif
-                        <span>...</span>
+                        @foreach($users_projects as $user_project)
+                            @if($user_role->id == $user_project->id)
+                            <span>{{ $user_project->name }}</span>
+                            @endif
+                        @endforeach
                     </div>
                     @endforeach
                 </div>

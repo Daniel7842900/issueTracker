@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Role;
+use App\Project;
 
 
 class UserController extends Controller
@@ -37,11 +38,19 @@ class UserController extends Controller
                         ->select('users.name', 'users.id', 'users.email', 'roles.type', 'users.role_id')
                         ->get();
 
+        $users_projects = DB::table('users')
+                            ->join('project_user', 'users.id', 'project_user.user_id')
+                            ->join('projects', 'project_user.project_id', 'projects.id')
+                            ->select('projects.name', 'users.id', 'project_user.project_id')
+                            ->get();
+
+        //dd($users_projects);
         //echo $users_roles;
 
         return view('user.index', [
             // 'users' => $users,
             'users_roles' => $users_roles,
+            'users_projects' => $users_projects,
         ]);
     }
 
