@@ -93,7 +93,73 @@ class ProjectController extends Controller
         // $project->save();
 
         return redirect('/project')->with('mssg', 'Project is created');
+    }
 
+    public function edit($id) {
+        $project = Project::findOrFail($id);
+
+        $managers = DB::table('users')
+                        ->leftjoin('roles', 'users.role_id', 'roles.id')
+                        ->select('users.id', 'users.name')
+                        ->where('users.role_id', '=', 2)
+                        ->get();
+
+        $users = DB::table('users')
+                    ->leftjoin('roles', 'users.role_id', 'roles.id')
+                    ->select('users.id', 'users.name')
+                    ->where('users.role_id', '=', 3)
+                    ->get();
+
+        $current_users = DB::table('users')
+                            ->leftjoin('roles', 'users.role_id', 'roles.id')
+                            ->join('project_user', 'project_user.user_id', 'users.id')
+                            ->select('users.id', 'users.name')
+                            ->where('users.role_id', '=', 3)
+                            ->get();
+
+        //dd($current_users);
+
+        return view('project.edit', [
+            'project' => $project,
+            'managers' => $managers,
+            'users' => $users,
+            'current_users' => $current_users,
+        ]);
+    }
+    
+    public function update(Request $request, $id) {
+        print_r($request->input());
+        print_r($id);
+
+        Project::where('id', $id)
+                ->update([
+                    'name'=>$request->proj_name,
+                    'desc'=>$request->proj_desc
+                    ]);
+
+        $current_manager = DB::table('users')
+                                ->leftjoin('roles', 'users.role_id', 'roles.id')
+                                ->join('project_user', 'project_user.user_id', 'users.id')
+                                ->select('users.id', 'users.name')
+                                ->where('users.role_id', '=', 2)
+                                ->first();
+
+        //dd($current_manager->id);
+
+        DB::table('users')
+            ->join('project_user', 'project_user.user_id', 'users.id')
+            ->where('project_user.user_id', $current_manager->id)
+            ->update([
+                'project_user.user_id'=>$request->manager
+            ]);
+
+        // DB::table('project_user')
+        //     ->updateOrInsert(
+        //         ['user_id' => $request->manager],
+        //         ['project_id' => $id]
+        //     );
+
+        return redirect('/project');
 
     }
 }

@@ -32,6 +32,10 @@
                             </select>
                         </span>
                         <span>{{ $project->created_at }}</span>
+                        <span>
+                            <a href="{{ route('project.edit', $project->id) }}">Edit</a>
+                            <a href="">Details</a>
+                        </span>
                     </div>
                     @endforeach
                 </div>

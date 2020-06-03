@@ -69,6 +69,9 @@
                         @foreach($users_projects as $user_project)
                             @if($user_role->id == $user_project->id)
                             <span>{{ $user_project->name }}</span>
+                                @break;
+                            @elseif($user_role->id != $user_project->id)
+                            <span></span>
                             @endif
                         @endforeach
                     </div>

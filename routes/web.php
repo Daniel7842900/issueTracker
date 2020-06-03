@@ -33,4 +33,8 @@ Route::get('/project', 'ProjectController@index')->name('project.index');
 
 Route::get('/project/create', 'ProjectController@create')->name('project.create');
 
+Route::get('/project/{id}', 'ProjectController@edit')->name('project.edit');
+
+Route::patch('/project/{id}', 'ProjectController@update')->name('project.update');
+
 Route::post('/project', 'ProjectController@store')->name('project.store');
