@@ -28,11 +28,11 @@
                     @endforeach
                 <fieldset>
                     <label for="member">Choose Members:</label>
-                    @if($users->isEmpty())
+                    @if($available_users->isEmpty())
                         <p>No Member is Available</p>
                     @else
-                        @foreach($users as $user)
-                        <input type="checkbox" name="members[]" value="{{ $user->id }}">{{ $user->name }}<br/>
+                        @foreach($available_users as $available_user)
+                        <input type="checkbox" name="members[]" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
                         @endforeach
                     @endif
                 </fieldset>

@@ -104,17 +104,22 @@ class ProjectController extends Controller
                         ->where('users.role_id', '=', 2)
                         ->get();
 
-        $users = DB::table('users')
+        $available_users = DB::table('users')
                     ->leftjoin('roles', 'users.role_id', 'roles.id')
-                    ->select('users.id', 'users.name')
+                    ->leftjoin('project_user', 'project_user.user_id', 'users.id')
+                    ->select('users.id', 'users.name', 'project_user.project_id')
                     ->where('users.role_id', '=', 3)
+                    ->whereNull('project_user.project_id')
                     ->get();
+
+        //dd($users);
 
         $current_users = DB::table('users')
                             ->leftjoin('roles', 'users.role_id', 'roles.id')
                             ->join('project_user', 'project_user.user_id', 'users.id')
                             ->select('users.id', 'users.name')
                             ->where('users.role_id', '=', 3)
+                            ->where('project_user.project_id', '=', $id)
                             ->get();
 
         //dd($current_users);
@@ -122,7 +127,7 @@ class ProjectController extends Controller
         return view('project.edit', [
             'project' => $project,
             'managers' => $managers,
-            'users' => $users,
+            'available_users' => $available_users,
             'current_users' => $current_users,
         ]);
     }
