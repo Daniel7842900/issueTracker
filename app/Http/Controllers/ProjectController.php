@@ -150,6 +150,7 @@ class ProjectController extends Controller
                                 ->first();
 
         //dd($current_manager->id);
+        //dd($request->members);
 
         DB::table('users')
             ->join('project_user', 'project_user.user_id', 'users.id')
@@ -158,11 +159,13 @@ class ProjectController extends Controller
                 'project_user.user_id'=>$request->manager
             ]);
 
-        // DB::table('project_user')
-        //     ->updateOrInsert(
-        //         ['user_id' => $request->manager],
-        //         ['project_id' => $id]
-        //     );
+        for($i = 0; $i < count($request->members); $i++) {
+            DB::table('project_user')
+            ->updateOrInsert(
+                ['user_id'=>$request->members[$i]],
+                ['project_id'=>$id]
+            );
+        }
 
         return redirect('/project');
 
