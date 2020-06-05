@@ -16,11 +16,11 @@
         <div class="card col-md-12">
             <div class="col-md-6">
                 <p>Project Name</p>
-                <p>{{ $project->name }}</p>
+                <p>{{ $project->title }}</p>
             </div>
             <div class="col-md-6">
                 <p>Project Desc</p>
-                <p>{{ $project->desc }}</p>
+                <p>{{ $project->description }}</p>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
         </div>
         <div class="card">
             <div>
-                <label for="">Tickets for {{ $project->name }}</label>
+                <label for="">Tickets for {{ $project->title }}</label>
             </div>
             <hr>
             <div>

@@ -10,9 +10,9 @@
                 @csrf
                 @method('PATCH')
                 <label for="name">Project name:</label>
-                <input type="text" id="proj_name" name="proj_name" value="{{ $project->name }}">
+                <input type="text" id="proj_name" name="proj_name" value="{{ $project->title }}">
                 <label for="desc">Project description:</label>
-                <input type="text" id="proj_desc" name="proj_desc" value="{{ $project->desc }}">
+                <input type="text" id="proj_desc" name="proj_desc" value="{{ $project->description }}">
                 <label for="manager">Choose Project Manager:</label>
                 <select name="manager" id="manager">
                     @foreach($managers as $manager)

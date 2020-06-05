@@ -41,7 +41,7 @@ class UserController extends Controller
         $users_projects = DB::table('users')
                             ->join('project_user', 'users.id', 'project_user.user_id')
                             ->join('projects', 'project_user.project_id', 'projects.id')
-                            ->select('projects.name', 'users.id', 'project_user.project_id')
+                            ->select('projects.title', 'users.id', 'project_user.project_id')
                             ->get();
 
         //dd($users_projects);

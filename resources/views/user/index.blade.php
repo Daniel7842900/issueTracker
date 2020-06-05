@@ -68,7 +68,7 @@
                         @endif
                         @foreach($users_projects as $user_project)
                             @if($user_role->id == $user_project->id)
-                            <span>{{ $user_project->name }}</span>
+                            <span>{{ $user_project->title }}</span>
                                 @break;
                             @elseif($user_role->id != $user_project->id)
                             <span></span>

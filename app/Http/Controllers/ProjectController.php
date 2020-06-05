@@ -64,8 +64,8 @@ class ProjectController extends Controller
 
         $project = new Project();
 
-        $project->name = request('proj_name');
-        $project->desc = request('proj_desc');
+        $project->title = request('proj_name');
+        $project->description = request('proj_desc');
 
         $project->save();
         $currentId = $project->id;

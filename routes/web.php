@@ -23,10 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/user', 'UserController@index')->name('user.index');
 
-// Route::post('/user', 'UserController@update')->name('user.update');
-
-//Route::resource('user', 'UserController');
-
 Route::post('/user', 'UserController@update')->name('user.update');
 
 Route::get('/project', 'ProjectController@index')->name('project.index');
@@ -46,3 +42,5 @@ Route::post('/project', 'ProjectController@store')->name('project.store');
 Route::get('/ticket', 'TicketController@index')->name('ticket.index');
 
 Route::get('/ticket/create', 'TicketController@create')->name('ticket.create');
+
+Route::post('/ticket', 'TicketController@store')->name('ticket.store');
