@@ -42,3 +42,7 @@ Route::get('/project/{id}/show', 'ProjectController@show')->name('project.show')
 Route::delete('/project/{id}', 'ProjectController@destroy')->name('project.destroy');
 
 Route::post('/project', 'ProjectController@store')->name('project.store');
+
+Route::get('/ticket', 'TicketController@index')->name('ticket.index');
+
+Route::get('/ticket/create', 'TicketController@create')->name('ticket.create');

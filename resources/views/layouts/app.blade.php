@@ -91,7 +91,7 @@
                 <a href="/project">
                     <h6 class="menu-item"><i class="fas fa-tasks"></i>Projects</h6>
                 </a>
-                <a href="#">
+                <a href="/ticket">
                     <h6 class="menu-item"><i class="fas fa-ticket-alt"></i>Tickets</h6>
                 </a>
                 <a href="#">
