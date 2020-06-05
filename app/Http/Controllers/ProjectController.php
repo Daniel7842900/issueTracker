@@ -133,8 +133,8 @@ class ProjectController extends Controller
     }
     
     public function update(Request $request, $id) {
-        print_r($request->input());
-        print_r($id);
+        // print_r($request->input());
+        // print_r($id);
 
         Project::where('id', $id)
                 ->update([
@@ -150,7 +150,7 @@ class ProjectController extends Controller
                                 ->first();
 
         //dd($current_manager->id);
-        //dd($request->members);
+        //dd($request->input());
 
         DB::table('users')
             ->join('project_user', 'project_user.user_id', 'users.id')
@@ -159,15 +159,48 @@ class ProjectController extends Controller
                 'project_user.user_id'=>$request->manager
             ]);
 
-        for($i = 0; $i < count($request->members); $i++) {
-            DB::table('project_user')
-            ->updateOrInsert(
-                ['user_id'=>$request->members[$i]],
-                ['project_id'=>$id]
-            );
+        if($request->has('avail_members')) {
+            for($i = 0; $i < count($request->avail_members); $i++) {
+                DB::table('project_user')
+                ->updateOrInsert(
+                    ['user_id'=>$request->avail_members[$i]],
+                    ['project_id'=>$id]
+                );
+            }
+        } else {
         }
+        
+        $project = Project::findOrFail($id);
 
+        //dd($project->id);
+
+        if($request->has('cur_members')) {
+            for($j = 0; $j < count($request->cur_members); $j++) {
+                $project->users()->detach($request->cur_members[$j]);
+            }
+        } else {
+        }
+        
         return redirect('/project');
-
     }
+
+    public function show($id) {
+
+        $project = Project::findOrFail($id);
+
+        $assigned_members = DB::table('users')
+                                ->leftjoin('roles', 'roles.id', 'users.role_id')
+                                ->join('project_user', 'project_user.user_id', 'users.id')
+                                ->select('users.name', 'users.email', 'roles.type')
+                                ->where('users.role_id', '=', 2)
+                                ->orWhere('users.role_id', '=', 3)
+                                ->get();
+
+        //dd($assigned_members);
+        return view('project.show',[
+            'project' => $project,
+            'assigned_members' => $assigned_members,
+        ]);
+    }
+
 }

@@ -33,8 +33,12 @@ Route::get('/project', 'ProjectController@index')->name('project.index');
 
 Route::get('/project/create', 'ProjectController@create')->name('project.create');
 
-Route::get('/project/{id}', 'ProjectController@edit')->name('project.edit');
+Route::get('/project/{id}/edit', 'ProjectController@edit')->name('project.edit');
 
 Route::patch('/project/{id}', 'ProjectController@update')->name('project.update');
+
+Route::get('/project/{id}/show', 'ProjectController@show')->name('project.show');
+
+//Route::delete('/project/{id}', 'ProjectController@destroy')->name('project.destroy');
 
 Route::post('/project', 'ProjectController@store')->name('project.store');

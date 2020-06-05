@@ -34,7 +34,7 @@
                         <span>{{ $project->created_at }}</span>
                         <span>
                             <a href="{{ route('project.edit', $project->id) }}">Edit</a>
-                            <a href="">Details</a>
+                            <a href="{{ route('project.show', $project->id) }}">Details</a>
                         </span>
                     </div>
                     @endforeach
@@ -43,10 +43,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 @endsection

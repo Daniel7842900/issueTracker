@@ -21,18 +21,16 @@
                 </select>
                 <label for="cur_member">Current Members:</label>
                     @foreach($current_users as $current_user)
-                    <ul>
-                        <li>{{ $current_user->name }}</li>
-                        <span><a href="">delete member</a></span>
-                    </ul>
+                    <input type="checkbox" name="cur_members[]" value="{{ $current_user->id }}">{{ $current_user->name }}<br/>
                     @endforeach
+                    <p>* check the box if you want to remove member/members</p>
                 <fieldset>
                     <label for="member">Choose Members:</label>
                     @if($available_users->isEmpty())
                         <p>No Member is Available</p>
                     @else
                         @foreach($available_users as $available_user)
-                        <input type="checkbox" name="members[]" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
+                        <input type="checkbox" name="avail_members[]" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
                         @endforeach
                     @endif
                 </fieldset>
