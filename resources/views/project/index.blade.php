@@ -33,8 +33,13 @@
                         </span>
                         <span>{{ $project->created_at }}</span>
                         <span>
-                            <a href="{{ route('project.edit', $project->id) }}">Edit</a>
-                            <a href="{{ route('project.show', $project->id) }}">Details</a>
+                            <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
+                            <button><a href="{{ route('project.show', $project->id) }}">Details</a></button>
+                            <form action="{{ route('project.destroy', $project->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
                         </span>
                     </div>
                     @endforeach

@@ -203,4 +203,13 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function destroy($id) {
+        $project = Project::findOrFail($id);
+        //dd($project);
+        $project->users()->detach();
+        $project->delete();
+
+        return redirect('/project');
+    }
+
 }

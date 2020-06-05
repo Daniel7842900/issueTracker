@@ -39,6 +39,6 @@ Route::patch('/project/{id}', 'ProjectController@update')->name('project.update'
 
 Route::get('/project/{id}/show', 'ProjectController@show')->name('project.show');
 
-//Route::delete('/project/{id}', 'ProjectController@destroy')->name('project.destroy');
+Route::delete('/project/{id}', 'ProjectController@destroy')->name('project.destroy');
 
 Route::post('/project', 'ProjectController@store')->name('project.store');
