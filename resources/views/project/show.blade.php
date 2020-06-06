@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="header-manage-member" class="col-md-4">
-    <h5>Details for {{ $project->name }}</h5>
+    <h5>Details for {{ $project->title }}</h5>
 </div>
 <div class="container wrapper-member-role">
     <div class="row">

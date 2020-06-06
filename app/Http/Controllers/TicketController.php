@@ -124,17 +124,43 @@ class TicketController extends Controller
                 ]);
         } else {
 
-        }                    
-        
-        
-        // Ticket::where('id', $id)
-        //         ->update([
-        //             'title' => $request->ticket_title,
-        //             'description' => $request->ticket_desc,
-        //             'project_id' => $request->ticket_project,
-        //         ]);
+        }    
+
+        Ticket::where('id', $id)
+                ->update([
+                    'title' => $request->ticket_title,
+                    'description' => $request->ticket_desc,
+                    'project_id' => $request->ticket_project,
+                ]);
 
 
         return redirect('/ticket');
+    }
+
+    public function show($id) {
+        $ticket = Ticket::findOrFail($id);
+
+        $cur_assignee = DB::table('tickets')
+                            ->join('users', 'tickets.assignee_id', 'users.id')
+                            ->where('tickets.id', '=', $id)
+                            ->select('users.name', 'tickets.assignee_id')
+                            ->first();
+
+        $project = DB::table('projects')
+                        ->join('tickets', 'tickets.project_id', 'projects.id')
+                        ->select('projects.title')
+                        ->first();
+
+        $submitter = DB::table('users')
+                        ->join('tickets', 'tickets.submitter_id', 'users.id')
+                        ->select('users.name')
+                        ->first();
+
+        return view('ticket.show', [
+            'ticket' => $ticket,
+            'project' => $project,
+            'cur_assignee' => $cur_assignee,
+            'submitter' => $submitter,
+        ]);
     }
 }

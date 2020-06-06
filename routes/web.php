@@ -33,7 +33,7 @@ Route::get('/project/{id}/edit', 'ProjectController@edit')->name('project.edit')
 
 Route::patch('/project/{id}', 'ProjectController@update')->name('project.update');
 
-Route::get('/project/{id}/show', 'ProjectController@show')->name('project.show');
+Route::get('/project/{id}/', 'ProjectController@show')->name('project.show');
 
 Route::delete('/project/{id}', 'ProjectController@destroy')->name('project.destroy');
 
@@ -48,3 +48,5 @@ Route::post('/ticket', 'TicketController@store')->name('ticket.store');
 Route::get('/ticket/{id}/edit', 'TicketController@edit')->name('ticket.edit');
 
 Route::patch('/ticket/{id}', 'TicketController@update')->name('ticket.update');
+
+Route::get('/ticket/{id}/', 'TicketController@show')->name('ticket.show');

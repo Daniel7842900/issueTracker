@@ -48,7 +48,7 @@
                         <span>{{ $ticket->updated_at }}</span>
                         <span>
                             <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
-                            <button><a href="">Details</a></button>
+                            <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
                             <form action="" method="POST">
                                 <button onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
