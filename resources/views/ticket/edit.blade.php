@@ -23,7 +23,7 @@
                 @if(is_null($cur_assignee))
                 <p>There is no user assigned</p>
                 @else
-                <p>{{ $cur_assignee }}</p>
+                <p>{{ $cur_assignee->name }}</p>
                 @endif
                 <fieldset>
                     <label for="avail_members">Available Members:</label>
@@ -31,8 +31,13 @@
                         <p>No Member is Available</p>
                     @else
                         @foreach($available_users as $available_user)
-                        <input type="checkbox" name="avail_members[]" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
+                            @if($available_user->name == $cur_assignee->name)
+
+                            @else
+                            <input type="checkbox" name="new_assignee" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
+                            @endif
                         @endforeach
+                        <p>* Only one member can be assigned</p>
                     @endif
                 </fieldset>
                 <input type="submit" value="Edit project">

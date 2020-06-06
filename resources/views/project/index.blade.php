@@ -14,7 +14,7 @@
                     </div>
                     <hr>
                     <div>
-                        <span>Name</span>
+                        <span>Title</span>
                         <span>Description</span>
                         <span>Members</span>
                         <span>Created Date</span>
@@ -22,8 +22,8 @@
                     <hr>
                     @foreach($projects as $project)
                     <div>
-                        <span>{{ $project->name }}</span>
-                        <span>{{ $project->desc }}</span>
+                        <span>{{ $project->title }}</span>
+                        <span>{{ $project->description }}</span>
                         <span>
                             <select name="proj_member" id="proj_member">
                                 @foreach($project->users as $user)

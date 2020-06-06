@@ -78,6 +78,8 @@ class TicketController extends Controller
                             ->select('users.name', 'tickets.assignee_id')
                             ->first();
 
+        //dd($cur_assignee);
+
         $available_users = DB::table('users')
                                 ->join('project_user', 'users.id', 'project_user.user_id')
                                 ->join('tickets', 'tickets.project_id', 'project_user.project_id')
@@ -97,9 +99,17 @@ class TicketController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $tickets = DB::table('tickets')
-                        ->get();
-
         
+        Ticket::where('id', $id)
+                ->update([
+                    'title' => $request->ticket_title,
+                    'description' => $request->ticket_desc,
+                    'project_id' => $request->ticket_project,
+                    'assignee_id' => $request->new_assignee,
+                ]);
+
+
+        return redirect('/ticket');
+        //dd($request->input());
     }
 }
