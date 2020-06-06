@@ -31,7 +31,17 @@
                         <span>{{ $ticket->description }}</span>
                         <span>{{ $project->title }}</span>
                         <span>{{ $submitter->name }}</span>
-                        <span>assignee</span>
+                        @if(is_null($ticket->assignee_id))
+                        <span>No member assigned</span>
+                        @else
+                            @foreach($assignees as $assignee)
+                                @if($ticket->id == $assignee->id)
+                                <span>{{ $assignee->name }}</span>
+                                @else
+
+                                @endif
+                            @endforeach
+                        @endif
                         <span>{{ $ticket->priority }}</span>
                         <span>{{ $ticket->status }}</span>
                         <span>{{ $ticket->created_at }}</span>

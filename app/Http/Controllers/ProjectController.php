@@ -138,8 +138,8 @@ class ProjectController extends Controller
 
         Project::where('id', $id)
                 ->update([
-                    'name'=>$request->proj_name,
-                    'desc'=>$request->proj_desc
+                    'title'=>$request->proj_name,
+                    'description'=>$request->proj_desc
                     ]);
 
         $current_manager = DB::table('users')

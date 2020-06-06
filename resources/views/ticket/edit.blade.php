@@ -31,10 +31,14 @@
                         <p>No Member is Available</p>
                     @else
                         @foreach($available_users as $available_user)
-                            @if($available_user->name == $cur_assignee->name)
-
+                            @if(is_null($cur_assignee))
+                                <input type="checkbox" name="new_assignee" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
                             @else
-                            <input type="checkbox" name="new_assignee" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
+                                @if($available_user->name == $cur_assignee->name)
+
+                                @else
+                                <input type="checkbox" name="new_assignee" value="{{ $available_user->id }}">{{ $available_user->name }}<br/>
+                                @endif
                             @endif
                         @endforeach
                         <p>* Only one member can be assigned</p>

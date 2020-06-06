@@ -26,12 +26,19 @@ class TicketController extends Controller
                         ->select('users.name')
                         ->first();
 
+        $assignees = DB::table('users')
+                        ->join('tickets', 'tickets.assignee_id', 'users.id')
+                        ->select('tickets.id', 'users.name')
+                        ->get();
+
         //dd($submitter);
+        //dd($assignees);
 
         return view('ticket.index', [
             'tickets' => $tickets,
             'project' => $project,
             'submitter' => $submitter,
+            'assignees' => $assignees,
         ]);
     }
 
@@ -75,6 +82,7 @@ class TicketController extends Controller
 
         $cur_assignee = DB::table('tickets')
                             ->join('users', 'tickets.assignee_id', 'users.id')
+                            ->where('tickets.id', '=', $id)
                             ->select('users.name', 'tickets.assignee_id')
                             ->first();
 
@@ -99,17 +107,34 @@ class TicketController extends Controller
     }
 
     public function update(Request $request, $id) {
+
+        $cur_assignee = DB::table('tickets')
+                            ->join('users', 'tickets.assignee_id', 'users.id')
+                            ->where('tickets.id', '=', $id)
+                            ->select('users.name', 'tickets.assignee_id')
+                            ->first();
         
-        Ticket::where('id', $id)
+        //dd($request->input());
+                            //dd($cur_assignee);
+
+        if($request->has('new_assignee')) {
+            Ticket::where('id', $id)
                 ->update([
-                    'title' => $request->ticket_title,
-                    'description' => $request->ticket_desc,
-                    'project_id' => $request->ticket_project,
                     'assignee_id' => $request->new_assignee,
                 ]);
+        } else {
+
+        }                    
+        
+        
+        // Ticket::where('id', $id)
+        //         ->update([
+        //             'title' => $request->ticket_title,
+        //             'description' => $request->ticket_desc,
+        //             'project_id' => $request->ticket_project,
+        //         ]);
 
 
         return redirect('/ticket');
-        //dd($request->input());
     }
 }
