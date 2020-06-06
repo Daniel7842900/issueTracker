@@ -26,22 +26,25 @@
                     </div>
                     <hr>
                     <div>
-                        <span></span>
-                        <span></span>
+                        @foreach($tickets as $ticket)
+                        <span>{{ $ticket->title }}</span>
+                        <span>{{ $ticket->description }}</span>
+                        <span>{{ $project->title }}</span>
+                        <span>{{ $submitter->name }}</span>
+                        <span>assignee</span>
+                        <span>{{ $ticket->priority }}</span>
+                        <span>{{ $ticket->status }}</span>
+                        <span>{{ $ticket->created_at }}</span>
+                        <span>{{ $ticket->updated_at }}</span>
                         <span>
-                            <select name="proj_member" id="proj_member">
-                                <option value=""></option>
-                            </select>
-                        </span>
-                        <span></span>
-                        <span>
-                            <button><a href="">Edit</a></button>
+                            <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
                             <button><a href="">Details</a></button>
                             <form action="" method="POST">
-                                
                                 <button onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </span>
+                        @endforeach
+
                     </div>
                 </div>
             </div>

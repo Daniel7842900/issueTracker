@@ -44,3 +44,7 @@ Route::get('/ticket', 'TicketController@index')->name('ticket.index');
 Route::get('/ticket/create', 'TicketController@create')->name('ticket.create');
 
 Route::post('/ticket', 'TicketController@store')->name('ticket.store');
+
+Route::get('/ticket/{id}/edit', 'TicketController@edit')->name('ticket.edit');
+
+Route::patch('/ticket/{id}', 'TicketController@update')->name('ticket.update');
