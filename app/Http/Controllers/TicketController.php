@@ -163,4 +163,13 @@ class TicketController extends Controller
             'submitter' => $submitter,
         ]);
     }
+
+    public function destroy($id) {
+        $ticket = Ticket::findOrFail($id);
+        //dd($ticket);
+        $ticket->delete();
+
+        return redirect('/ticket');
+
+    }
 }

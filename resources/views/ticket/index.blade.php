@@ -49,7 +49,9 @@
                         <span>
                             <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
                             <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
-                            <form action="" method="POST">
+                            <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
                                 <button onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
                         </span>

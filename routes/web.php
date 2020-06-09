@@ -50,3 +50,5 @@ Route::get('/ticket/{id}/edit', 'TicketController@edit')->name('ticket.edit');
 Route::patch('/ticket/{id}', 'TicketController@update')->name('ticket.update');
 
 Route::get('/ticket/{id}/', 'TicketController@show')->name('ticket.show');
+
+Route::delete('/ticket/{id}', 'TicketController@destroy')->name('ticket.destroy');
