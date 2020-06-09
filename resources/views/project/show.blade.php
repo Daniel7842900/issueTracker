@@ -51,19 +51,21 @@
             <hr>
             <div>
                 <span>Title</span>
+                <span>Description</span>
                 <span>Submitter</span>
                 <span>Status</span>
                 <span>Created Date</span>
-                <span>Details</span>
             </div>
             <hr>
+            @foreach($project_tickets as $project_ticket)
             <div>
-                <span>Title</span>
-                <span>Submitter</span>
-                <span>Status</span>
-                <span>Created Date</span>
-                <span>Details</span>
+                <span>{{ $project_ticket->title }}</span>
+                <span>{{ $project_ticket->description }}</span>
+                <span>{{ $project_ticket->name }}</span>
+                <span>{{ $project_ticket->status }}</span>
+                <span>{{ $project_ticket->created_at }}</span>
             </div>
+            @endforeach
         </div>
     </div>
     <!-- <p class="mssg">{{ session('mssg') }}</p> -->

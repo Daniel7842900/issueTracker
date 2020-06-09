@@ -196,10 +196,20 @@ class ProjectController extends Controller
                                 ->orWhere('users.role_id', '=', 3)
                                 ->get();
 
+        $project_tickets = DB::table('tickets')
+                                ->join('projects', 'projects.id', 'tickets.project_id')
+                                ->join('users', 'users.id', 'tickets.submitter_id')
+                                ->select('tickets.title', 'tickets.description', 'tickets.created_at', 'users.name', 'tickets.status')
+                                ->get();
+
+        //dd($project_tickets);
+        
+        
         //dd($assigned_members);
         return view('project.show',[
             'project' => $project,
             'assigned_members' => $assigned_members,
+            'project_tickets' => $project_tickets,
         ]);
     }
 
