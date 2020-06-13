@@ -49,6 +49,12 @@ Route::get('/ticket/{id}/edit', 'TicketController@edit')->name('ticket.edit');
 
 Route::patch('/ticket/{id}', 'TicketController@update')->name('ticket.update');
 
-Route::get('/ticket/{id}/', 'TicketController@show')->name('ticket.show');
+Route::get('/ticket/{id}', 'TicketController@show')->name('ticket.show');
 
 Route::delete('/ticket/{id}', 'TicketController@destroy')->name('ticket.destroy');
+
+Route::get('/comment/{id}', 'CommentController@index')->name('comment.index');
+
+Route::post('/comment/{id}', 'CommentController@store')->name('comment.store');
+
+//Route::get('/comment', 'CommentController@index')->name('comment.index');

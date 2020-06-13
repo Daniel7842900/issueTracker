@@ -58,36 +58,8 @@
                 </div>
             </div>
         </div>
-        <div class="card col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Add a Comment</p>
-                    <input type="text">
-                    <input type="submit">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Ticket Comments</label>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>Commenter</span>
-                    <span>Message</span>
-                    <span>Created Date</span>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>Commenter</span>
-                    <span>Message</span>
-                    <span>Created Date</span>
-                </div>
-            </div>
-            </div>
+        <div class="card col-md-6 comment">
+            @include('comment.index', ['id' => $ticket->id])
         </div>
     </div>
     <div class="row">
