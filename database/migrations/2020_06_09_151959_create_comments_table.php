@@ -18,7 +18,7 @@ class CreateCommentsTable extends Migration
             $table->foreignId('commenter_id');
             $table->foreignId('ticket_id');
             $table->foreign('commenter_id')->references('id')->on('users');
-            $table->foreign('ticket_id')->references('id')->on('projects');
+            $table->foreign('ticket_id')->references('id')->on('tickets');
             $table->string('description');
             $table->timestamps();
         });

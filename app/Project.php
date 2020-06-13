@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Ticket;
 
 class Project extends Model
 {
@@ -12,6 +13,10 @@ class Project extends Model
 
     public function users() {
         return $this->belongsToMany(User::class);
+    }
+
+    public function tickets() {
+        return $this->hasMany(Ticket::class);
     }
 
 }

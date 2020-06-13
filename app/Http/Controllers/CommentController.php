@@ -20,16 +20,24 @@ class CommentController extends Controller
 
     public function store(Request $request, $id) {
         //dd($request->input());
-
+        //dd($id);
         $comment = new Comment();
         $user_id = Auth::id();
         $ticket = Ticket::findOrFail($id);
+        //$ticket_id = $ticket->id;
+        //dd($ticket_id);
 
 
         //dd($user_id);
-        dd($ticket);
+        //dd($ticket);
 
         $comment->description = request('comment_message');
+        $comment->commenter_id = $user_id;
+        $comment->ticket_id = $id;
+
+        $comment->save();
+
+        return redirect()->route('ticket.show', [$ticket])->with('comment has been saved');
 
     }
 }
