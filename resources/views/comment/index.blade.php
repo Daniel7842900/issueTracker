@@ -21,8 +21,10 @@
 <hr>
 <div class="row">
     <div class="col-md-6">
-        <span>Commenter</span>
-        <span>Message</span>
-        <span>Created Date</span>
+        @foreach($comments as $comment)
+        <span>{{ $comment->name }}</span>
+        <span>{{ $comment->description }}</span>
+        <span>{{ $comment->created_at }}</span>
+        @endforeach
     </div>
 </div>

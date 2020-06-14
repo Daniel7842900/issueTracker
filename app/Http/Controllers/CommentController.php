@@ -11,10 +11,17 @@ class CommentController extends Controller
 {
     public function index($id) {
         $ticket = Ticket::findOrFail($id);
-        echo $ticket;
+
+        $comments = DB::table('comments')
+                        ->join('users', 'users.id', 'comments.commenter_id')
+                        ->select('commenter_id', 'description', 'created_at')
+                        ->where('ticket_id', '=', $id)
+                        ->get();
         //dd($ticket);
-        return view('ticket.show', [
-            'ticket' => $ticket,
+        dd($comments);
+        return view('comment.index', [
+            // 'ticket' => $ticket,
+            'comments' => $comments,
         ]);
     }
 

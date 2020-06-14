@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Ticket extends Model
+class Ticket extends Model implements Auditable
 {
     //
+    use \OwenIt\Auditing\Auditable;
 
     protected $table = 'tickets';
 
@@ -18,5 +20,10 @@ class Ticket extends Model
         return $this->belongsTo('App\Project');
     }
 
+    // protected $auditInclude  = [
+
+    //     'title', 'description'
+
+    // ];
     
 }

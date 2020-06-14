@@ -108,6 +108,10 @@ class TicketController extends Controller
 
     public function update(Request $request, $id) {
 
+        $ticket = Ticket::findOrFail($id);
+
+        //dd($ticket);
+
         $cur_assignee = DB::table('tickets')
                             ->join('users', 'tickets.assignee_id', 'users.id')
                             ->where('tickets.id', '=', $id)
@@ -115,23 +119,31 @@ class TicketController extends Controller
                             ->first();
         
         //dd($request->input());
-                            //dd($cur_assignee);
+        //dd($cur_assignee);
 
         if($request->has('new_assignee')) {
-            Ticket::where('id', $id)
-                ->update([
-                    'assignee_id' => $request->new_assignee,
-                ]);
+            $new_assignee = $request->new_assignee;
+            $ticket->assignee_id = $new_assignee;
+            //$ticket->save();
+            // $ticket->
+            // Ticket::where('id', $id)
+            //     ->update([
+            //         'assignee_id' => $request->new_assignee,
+            //     ]);
         } else {
 
         }    
 
-        Ticket::where('id', $id)
-                ->update([
-                    'title' => $request->ticket_title,
-                    'description' => $request->ticket_desc,
-                    'project_id' => $request->ticket_project,
-                ]);
+        $ticket->title = $request->ticket_title;
+        $ticket->description = $request->ticket_desc;
+        $ticket->project_id = $request->ticket_project;
+        $ticket->save();
+        // Ticket::where('id', $id)
+        //         ->update([
+        //             'title' => $request->ticket_title,
+        //             'description' => $request->ticket_desc,
+        //             'project_id' => $request->ticket_project,
+        //         ]);
 
 
         return redirect('/ticket');
@@ -156,11 +168,20 @@ class TicketController extends Controller
                         ->select('users.name')
                         ->first();
 
+        $comments = DB::table('comments')
+                        ->join('users', 'users.id', 'comments.commenter_id')
+                        ->select('users.name', 'comments.description', 'comments.created_at')
+                        ->where('ticket_id', '=', $id)
+                        ->get();
+        
+        //dd($comments);
+
         return view('ticket.show', [
             'ticket' => $ticket,
             'project' => $project,
             'cur_assignee' => $cur_assignee,
             'submitter' => $submitter,
+            'comments' => $comments,
         ]);
     }
 
