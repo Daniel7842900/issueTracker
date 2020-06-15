@@ -65,26 +65,43 @@
     <div class="row">
         <div class="card col-md-6">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label for="">Ticket History</label>
                 </div>
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-6">
-                    <span>Title</span>
-                    <span>Old Value</span>
-                    <span>New Value</span>
+                <div class="col-md-12">
+                    <span>Changed Value</span>
+                    <span>Changed Date</span>
                 </div>
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-6">
-                    <span>Title</span>
-                    <span>Old Value</span>
-                    <span>New Value</span>
-                    <span>Date changed</span>
+                @foreach($audits as $audit)
+                <div class="col-md-12">
+                    @php
+                        $old_value = json_decode($audit->old_values, true);
+                        $new_value = json_decode($audit->new_values, true);
+                        $changed_value = array_diff($old_value, $new_value);
+                        
+                    @endphp
+                    @if(array_key_exists('title', $changed_value))
+                        <label for="">Title:</label>
+                        <span>{{ $old_value['title'] }} -> {{ $new_value['title'] }}</span>
+                        <br>
+                    @endif
+                    @if(array_key_exists('description', $changed_value))
+                        <label for="">Description:</label>
+                        <span>{{ $old_value['description'] }} -> {{ $new_value['description'] }}</span>
+                        <br>
+                    @endif
+                    <label for="">Changed Date:</label>
+                    <span>{{ $new_value['updated_at'] }}</span>
+                    <hr>
                 </div>
+                @endforeach
+                
             </div>
         </div>
         <div class="card col-md-6">

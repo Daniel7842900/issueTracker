@@ -176,12 +176,63 @@ class TicketController extends Controller
         
         //dd($comments);
 
+        $audits = DB::table('audits')
+                    ->select('*')
+                    ->where('audits.auditable_id', '=', $id)
+                    ->get();
+
+        $latest_audit = DB::table('audits')
+                    ->select('*')
+                    ->where('audits.auditable_id', '=', $id)
+                    ->latest('updated_at')
+                    ->first();
+
+        // $old_assignee_names = DB::table('users')
+        //                         ->join('audits', 'users.id', 'audits.')
+        
+        //$old_value = json_decode($latest_audit->old_values, true);
+        //$new_value = json_decode($latest_audit->new_values, true);
+
+
+        //$changed_value = array_diff($old_value, $new_value);
+
+        //dd($changed_value);
+
+        // if(array_key_exists('assignee_id', $changed_value)) {
+        //     $old_assignee_name = DB::table('users')
+        //                         ->select('users.name')
+        //                         ->where('users.id', '=', $old_value['assignee_id'])
+        //                         ->first();
+        // }
+
+        // if(array_key_exists('assignee_id', $changed_value)) {
+        //     $new_assignee_name = DB::table('users')
+        //                         ->select('users.name')
+        //                         ->where('users.id', '=', $new_value['assignee_id'])
+        //                         ->first();
+        // } else {
+        //     $new_assignee_name = "";
+        // }
+
+        //dd($audits);
+        //dd($latest_audit);
+        //dd($old_value);
+        //dd($new_value);
+
+        //dd($audits[0]->old_values);
+
         return view('ticket.show', [
             'ticket' => $ticket,
             'project' => $project,
             'cur_assignee' => $cur_assignee,
             'submitter' => $submitter,
             'comments' => $comments,
+            'audits' => $audits,
+            'latest_audit' => $latest_audit,
+            // 'old_value' => $old_value,
+            // 'new_value' => $new_value,
+            // 'changed_value' => $changed_value,
+            // 'new_assignee_name' => $new_assignee_name,
         ]);
     }
 

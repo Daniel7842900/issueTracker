@@ -21,7 +21,7 @@
                 <select name="ticket_type" id="ticket_type">
                     <option value="bug">Bug/Error</option>
                     <option value="enhancement">Enhancement</option>
-                    <option value="reature">Feature request</option>
+                    <option value="feature">Feature request</option>
                 </select>
                 <label for="ticket_priority">Choose Priority:</label>
                 <select name="ticket_priority" id="ticket_priority">
