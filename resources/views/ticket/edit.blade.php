@@ -44,6 +44,11 @@
                         <p>* Only one member can be assigned</p>
                     @endif
                 </fieldset>
+                <label for="ticket_status">Ticket status:</label>
+                <select name="ticket_status" id="ticket_status">
+                    <option value="open">open</option>
+                    <option value="closed">closed</option>
+                </select>
                 <input type="submit" value="Edit project">
             </form>
         </div>

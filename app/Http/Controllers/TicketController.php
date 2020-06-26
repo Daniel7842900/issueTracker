@@ -137,6 +137,7 @@ class TicketController extends Controller
         $ticket->title = $request->ticket_title;
         $ticket->description = $request->ticket_desc;
         $ticket->project_id = $request->ticket_project;
+        $ticket->status = $request->ticket_status;
         $ticket->save();
         // Ticket::where('id', $id)
         //         ->update([
