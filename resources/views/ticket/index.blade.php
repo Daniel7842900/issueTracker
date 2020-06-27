@@ -13,51 +13,60 @@
                         <label for="">Your Tickets</label>
                     </div>
                     <hr>
-                    <div>
-                        <span>Title</span>
-                        <span>Description</span>
-                        <span>Project</span>
-                        <span>Submitter</span>
-                        <span>Assignee</span>
-                        <span>Priority</span>
-                        <span>Status</span>
-                        <span>Created Date</span>
-                        <span>Updated Date</span>
-                    </div>
-                    <hr>
-                    <div>
-                        @foreach($tickets as $ticket)
-                        <span>{{ $ticket->title }}</span>
-                        <span>{{ $ticket->description }}</span>
-                        <span>{{ $project->title }}</span>
-                        <span>{{ $submitter->name }}</span>
-                        @if(is_null($ticket->assignee_id))
-                        <span>No member assigned</span>
-                        @else
-                            @foreach($assignees as $assignee)
-                                @if($ticket->id == $assignee->id)
-                                <span>{{ $assignee->name }}</span>
+                    <table>
+                        <div>
+                            <tr style="border-bottom:1px solid black">
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Project</th>
+                                <th>Submitter</th>
+                                <th>Assignee</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Created Date</th>
+                                <th>Updated Date</th>
+                            </tr>
+                        </div>
+                        <div>
+                            @foreach($tickets as $ticket)
+                            <tr>
+                                <td>{{ $ticket->title }}</td>
+                                <td>{{ $ticket->description }}</td>
+                                <td>{{ $project->title }}</td>
+                                <td>{{ $submitter->name }}</td>
+                                @if(is_null($ticket->assignee_id))
+                                <td>No member assigned</td>
                                 @else
+                                    @foreach($assignees as $assignee)
+                                        @if($ticket->id == $assignee->id)
+                                        <td>{{ $assignee->name }}</td>
+                                        @else
 
+                                        @endif
+                                    @endforeach
                                 @endif
+                                <td>{{ $ticket->priority }}</td>
+                                <td>{{ $ticket->status }}</td>
+                                <td>{{ date('n-j-Y', strtotime($ticket->created_at)) }}</td>
+                                <td>{{ date('n-j-Y', strtotime($ticket->updated_at)) }}</td>
+                                <td>
+                                    <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
+                                </td>
+                                <td>
+                                    <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
+                                </td>
+                                <td>
+                                    <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
                             @endforeach
-                        @endif
-                        <span>{{ $ticket->priority }}</span>
-                        <span>{{ $ticket->status }}</span>
-                        <span>{{ $ticket->created_at }}</span>
-                        <span>{{ $ticket->updated_at }}</span>
-                        <span>
-                            <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
-                            <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
-                            <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-                        </span>
-                        @endforeach
-
-                    </div>
+                        </div>
+                    </table>
+                    
                 </div>
             </div>
         </div>

@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-md-6">
                     <p>Created Date</p>
-                    <p>{{ $ticket->created_at }}</p>
+                    <p>{{ date('m-d-Y', strtotime($ticket->created_at)) }}</p>
                 </div>
             </div>
         </div>
