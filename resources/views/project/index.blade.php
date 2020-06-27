@@ -13,36 +13,45 @@
                         <label for="">Your Projects</label>
                     </div>
                     <hr>
-                    <div>
-                        <span>Title</span>
-                        <span>Description</span>
-                        <span>Members</span>
-                        <span>Created Date</span>
-                    </div>
-                    <hr>
-                    @foreach($projects as $project)
-                    <div>
-                        <span>{{ $project->title }}</span>
-                        <span>{{ $project->description }}</span>
-                        <span>
-                            <select name="proj_member" id="proj_member">
-                                @foreach($project->users as $user)
-                                <option value="">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </span>
-                        <span>{{ $project->created_at }}</span>
-                        <span>
-                            <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
-                            <button><a href="{{ route('project.show', $project->id) }}">Details</a></button>
-                            <form action="{{ route('project.destroy', $project->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
-                        </span>
-                    </div>
-                    @endforeach
+                    <table>
+                        <div>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Members</th>
+                                <th>Created Date</th>
+                            </tr>
+                        </div>
+                        <div>
+                            @foreach($projects as $project)
+                            <tr>
+                                <td>{{ $project->title }}</td>
+                                <td>{{ $project->description }}</td>
+                                <td>
+                                    <select name="proj_member" id="proj_member">
+                                        @foreach($project->users as $user)
+                                        <option value="">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>{{ $project->created_at }}</td>
+                                <td>
+                                    <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
+                                </td>
+                                <td>
+                                    <button><a href="{{ route('project.show', $project->id) }}">Details</a></button>
+                                </td>
+                                <td>
+                                    <form action="{{ route('project.destroy', $project->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </div>
+                    </table>
                 </div>
                 <!-- <p class="mssg">{{ session('mssg') }}</p> -->
             </div>
