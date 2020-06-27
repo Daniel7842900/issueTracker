@@ -15,9 +15,9 @@
                                 <label>Select Member</label>
                             </div>
                             <hr>
-                            @foreach($users_roles as $user_role)
+                            @foreach($users_info as $user_info)
                             <div>
-                                <input type="checkbox" name="userId" value="{{ $user_role->id }}">{{ $user_role->name }}
+                                <input type="checkbox" name="userId" value="{{ $user_info->id }}">{{ $user_info->name }}
                             </div>
                             @endforeach
                         </fieldset>
@@ -44,38 +44,40 @@
                         <label for="">Registered Users</label>
                     </div>
                     <hr>
-                    <div>
-                        <span>Name</span>
-                        <span>Email</span>
-                        <span>Role</span>
-                        <span>Assigned Project</span>
-                    </div>
-                    <hr>
-                    @foreach($users_roles as $user_role)
-                    <div>
-                        <span>{{ $user_role->name }}</span>
-                        <span>{{ $user_role->email }}</span>
-                        @if($user_role->role_id == null)
-                            <span>Not Assigned</span>
-                        @elseif($user_role->role_id != null)
-                            @if($user_role->role_id == 1)
-                            <span>{{ $user_role->type }}</span>
-                            @elseif($user_role->role_id == 2)
-                            <span>{{ $user_role->type }}</span>
-                            @elseif($user_role->role_id == 3)
-                            <span>{{ $user_role->type }}</span>
-                            @endif
-                        @endif
-                        @foreach($users_projects as $user_project)
-                            @if($user_role->id == $user_project->id)
-                            <span>{{ $user_project->title }}</span>
-                                @break;
-                            @elseif($user_role->id != $user_project->id)
-                            <span></span>
-                            @endif
-                        @endforeach
-                    </div>
-                    @endforeach
+                    <table>
+                        <div>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Assigned Project</th>
+                            </tr>
+                        </div>
+                        <div>
+                            @foreach($users_info as $user_info)
+                            <tr>
+                                <td>{{ $user_info->name }}</td>
+                                <td>{{ $user_info->email }}</td>
+                                @if($user_info->role_id == null)
+                                <td>Not Assigned</td>
+                                @elseif($user_info->role_id != null)
+                                    @if($user_info->role_id == 1)
+                                    <td>{{ $user_info->type }}</td>
+                                    @elseif($user_info->role_id == 2)
+                                    <td>{{ $user_info->type }}</td>
+                                    @elseif($user_info->role_id == 3)
+                                    <td>{{ $user_info->type }}</td>
+                                    @endif
+                                @endif
+                                @if($user_info->title != null)
+                                <td>{{ $user_info->title }}</td>
+                                @else
+                                <td>NA</td>
+                                @endif
+                            </tr>
+                            @endforeach
+                        </div>
+                    </table>
                 </div>
             </div>
         </div>
