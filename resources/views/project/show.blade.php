@@ -25,47 +25,57 @@
         </div>
     </div>
     <div class="row">
-        <div class="card">
+        <div class="card col-md-6">
             <div>
                 <label for="">Assigned Member</label>
             </div>
             <hr>
-            <div>
-                <span>Name</span>
-                <span>Email</span>
-                <span>Role</span>
-            </div>
-            <hr>
-            @foreach($assigned_members as $assigned_member)
-            <div>
-                <span>{{ $assigned_member->name }}</span>
-                <span>{{ $assigned_member->email }}</span>
-                <span>{{ $assigned_member->type }}</span>
-            </div>
-            @endforeach
+            <table>
+                <div>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </div>
+                <div>
+                    @foreach($assigned_members as $assigned_member)
+                    <tr>
+                        <td>{{ $assigned_member->name }}</td>
+                        <td>{{ $assigned_member->email }}</td>
+                        <td>{{ $assigned_member->type }}</td>
+                    </tr>
+                    @endforeach
+                </div>
+            </table>
         </div>
-        <div class="card">
+        <div class="card col-md-6">
             <div>
                 <label for="">Tickets for {{ $project->title }}</label>
             </div>
             <hr>
-            <div>
-                <span>Title</span>
-                <span>Description</span>
-                <span>Submitter</span>
-                <span>Status</span>
-                <span>Created Date</span>
-            </div>
-            <hr>
-            @foreach($project_tickets as $project_ticket)
-            <div>
-                <span>{{ $project_ticket->title }}</span>
-                <span>{{ $project_ticket->description }}</span>
-                <span>{{ $project_ticket->name }}</span>
-                <span>{{ $project_ticket->status }}</span>
-                <span>{{ $project_ticket->created_at }}</span>
-            </div>
-            @endforeach
+            <table>
+                <div>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Submitter</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                    </tr>
+                </div>
+                <div>
+                    @foreach($project_tickets as $project_ticket)
+                    <tr>
+                        <td>{{ $project_ticket->title }}</td>
+                        <td>{{ $project_ticket->description }}</td>
+                        <td>{{ $project_ticket->name }}</td>
+                        <td>{{ $project_ticket->status }}</td>
+                        <td>{{ $project_ticket->created_at }}</td>
+                    </tr>
+                    @endforeach
+                </div>
+            </table>
         </div>
     </div>
     <!-- <p class="mssg">{{ session('mssg') }}</p> -->
