@@ -57,4 +57,5 @@ Route::get('/comment/{id}', 'CommentController@index')->name('comment.index');
 
 Route::post('/comment/{id}', 'CommentController@store')->name('comment.store');
 
+Route::get('/attachment/{id}', 'AttachmentController@index')->name('attachment.index');
 //Route::get('/comment', 'CommentController@index')->name('comment.index');

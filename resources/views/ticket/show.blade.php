@@ -105,47 +105,7 @@
             </div>
         </div>
         <div class="card col-md-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Add an Attachment</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div>
-                        <p>Select an attachment</p>
-                        <button></button>
-                    </div>
-                    <div>
-                        <p>Leave a description</p>
-                        <input type="text">
-                        <input type="submit">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="">Ticket Attachments</label>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>File</span>
-                    <span>Uploader</span>
-                    <span>Notes</span>
-                    <span>Uploaded Date</span>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <span>File</span>
-                    <span>Uploader</span>
-                    <span>Notes</span>
-                    <span>Uploaded Date</span>
-                </div>
-            </div>
+            @include('attachment.index', ['id' => $ticket->id])
         </div>
     </div>
     <!-- <p class="mssg">{{ session('mssg') }}</p> -->
