@@ -175,6 +175,10 @@ class TicketController extends Controller
                         ->where('ticket_id', '=', $id)
                         ->get();
         
+        $attachments = DB::table('attachments')
+                        ->join('tickets', 'tickets.id', 'attachments.ticket_id')
+                        ->select('*')
+                        ->get();
         //dd($comments);
 
         $audits = DB::table('audits')
@@ -230,6 +234,7 @@ class TicketController extends Controller
             'comments' => $comments,
             'audits' => $audits,
             'latest_audit' => $latest_audit,
+            'attachments' => $attachments,
             // 'old_value' => $old_value,
             // 'new_value' => $new_value,
             // 'changed_value' => $changed_value,

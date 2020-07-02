@@ -20,6 +20,10 @@ class Ticket extends Model implements Auditable
         return $this->belongsTo('App\Project');
     }
 
+    public function attachments() {
+        return $this->hasMany('App\Attachment');
+    }
+
     // protected $auditInclude  = [
 
     //     'title', 'description'

@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model
 {
-    //
+    protected $table = 'attachments';
+
+    public function ticket() {
+        return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
 }

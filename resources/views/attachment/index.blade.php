@@ -5,18 +5,7 @@
 </div>
 <hr>
 <div class="row">
-    <div class="col-md-6">
-        <div>
-            <p>Select an attachment</p>
-            <input name="img" type="file">
-        </div>
-        <hr>
-        <div>
-            <p>Leave a description</p>
-            <input type="text">
-            <input type="submit">
-        </div>
-    </div>
+    @include('attachment.create', [$ticket->id])
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -25,26 +14,28 @@
 </div>
 <hr>
 <div class="row">
-    <table>
-        <div class="row">
-            <tr>
-                <div class="col-md-6">
+    <div class="col-md-12">
+        <table>
+            <div>
+                <tr>
                     <th>File</th>
                     <th>Uploader</th>
                     <th>Notes</th>
                     <th>Uploaded Date</th>
-                </div>
-            </tr>
-        </div>
-        <div class="row">
-            <tr>
-                <div class="col-md-6">
-                    <td>File</td>
+                </tr>
+            </div>
+            <div>
+                @foreach($attachments as $attachment)
+                <tr>
+                    <td>file</td>
                     <td>Uploader</td>
                     <td>Notes</td>
                     <td>Uploaded Date</td>
-                </div>
-            </tr>
-        </div>
-    </table>
+                    <td><button><a href="{{ route('attachment.show', [$attachment->id]) }}">Details</a></button></td>
+                </tr>
+                @endforeach
+            </div>
+        </table>
+    </div>
+    
 </div>
