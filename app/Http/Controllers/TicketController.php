@@ -177,8 +177,13 @@ class TicketController extends Controller
         
         $attachments = DB::table('attachments')
                         ->join('tickets', 'tickets.id', 'attachments.ticket_id')
-                        ->select('*')
+                        ->join('users', 'users.id', 'attachments.attachment_commenter_id')
+                        ->select('attachments.id', 'attachments.ticket_id', 'attachments.description',
+                                'attachments.path', 'attachments.attachment_commenter_id',
+                                'attachments.created_at', 'users.name')
                         ->get();
+        
+        //dd($attachments);
         //dd($comments);
 
         $audits = DB::table('audits')
