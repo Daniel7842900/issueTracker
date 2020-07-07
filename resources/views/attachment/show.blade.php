@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ route('ticket.show', $ticket->id) }}">Back to ticket list</a>
-            <a href="">Edit attachment</a>
+            <a href="{{ route('attachment.edit', $attachment->id) }}">Edit attachment</a>
         </div>
     </div>
     <div class="row">

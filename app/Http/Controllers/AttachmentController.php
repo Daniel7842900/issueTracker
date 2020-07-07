@@ -78,4 +78,55 @@ class AttachmentController extends Controller
             'uploader' => $uploader,
         ]);
     }
+
+    public function edit($id) {
+        $attachment = Attachment::findOrFail($id);
+        
+        //dd($attachment->attachment_description);
+
+        return view('attachment.edit', [
+            'attachment' => $attachment,
+        ]);
+    }
+
+    public function update(Request $request, $id) {
+
+        $attachment = Attachment::findOrFail($id);
+
+        //dd($request->input());
+
+        $file = $request->file('attachment_img');
+
+        $user_id = Auth::id();
+
+        //dd($file);
+
+        if($file != '') {
+            $filename = 'attachment-'. time() . '.' . $file->getClientOriginalExtension();
+
+            $path = $file->storeAs('attachment', $filename);
+        } else {
+            $path = $attachment->path;
+        }
+
+        $ticket = DB::table('tickets')
+                    ->join('attachments', 'tickets.id', 'attachments.ticket_id')
+                    ->select('tickets.id')
+                    ->first();
+
+        //dd($ticket);
+
+        // if($request->attachment_description == '') {
+        //     $attachment->description
+        // }
+
+        $attachment->ticket_id = $ticket->id;
+        $attachment->description = request('attachment_description');
+        $attachment->path = $path;
+        $attachment->attachment_commenter_id = $user_id;
+
+        $attachment->save();
+
+        return redirect()->route('ticket.show', [$ticket->id])->with('attachment has been edited');
+    }
 }

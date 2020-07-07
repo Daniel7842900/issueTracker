@@ -63,3 +63,6 @@ Route::post('/attachment/{id}', 'AttachmentController@store')->name('attachment.
 
 Route::get('/attachment/{id}', 'AttachmentController@show')->name('attachment.show')->middleware('auth');
 
+Route::get('/attachment/{id}/edit', 'AttachmentController@edit')->name('attachment.edit')->middleware('auth');
+
+Route::patch('/attachment/{id}', 'AttachmentController@update')->name('attachment.update')->middleware('auth');
