@@ -30,6 +30,13 @@
                     <td>{{ $attachment->description }}</td>
                     <td>{{ $attachment->created_at }}</td>
                     <td><button><a href="{{ route('attachment.show', [$attachment->id]) }}">Details</a></button></td>
+                    <td>
+                        <form action="{{ route('attachment.destroy', [$attachment->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button onclick="return confirm('Are you sure?')" >Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
             </div>

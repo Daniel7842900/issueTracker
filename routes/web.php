@@ -66,3 +66,5 @@ Route::get('/attachment/{id}', 'AttachmentController@show')->name('attachment.sh
 Route::get('/attachment/{id}/edit', 'AttachmentController@edit')->name('attachment.edit')->middleware('auth');
 
 Route::patch('/attachment/{id}', 'AttachmentController@update')->name('attachment.update')->middleware('auth');
+
+Route::delete('/attachment/{id}', 'AttachmentController@destroy')->name('attachment.destroy')->middleware('auth');

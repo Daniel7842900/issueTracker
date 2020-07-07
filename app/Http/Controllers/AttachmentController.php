@@ -129,4 +129,19 @@ class AttachmentController extends Controller
 
         return redirect()->route('ticket.show', [$ticket->id])->with('attachment has been edited');
     }
+
+    public function destroy($id) {
+        $attachment = Attachment::findOrFail($id);
+
+        $ticket = DB::table('tickets')
+                    ->join('attachments', 'tickets.id', 'attachments.ticket_id')
+                    ->select('tickets.id')
+                    ->first();
+        //dd($attachment);
+
+        //dd($ticket);
+        $attachment->delete();
+
+        return redirect()->route('ticket.show', [$ticket->id])->with('attachment has been deleted');
+    }
 }
