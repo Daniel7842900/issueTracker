@@ -11,6 +11,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
+            charset="utf-8"></script>
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -82,7 +85,7 @@
                     <h5>name</h5>
                 </div>
                 <div class="items-container">
-                <a href="#">
+                <a href="/home">
                     <h6 class="menu-item"><i class="fas fa-chart-line"></i>Dashboard</h6>
                 </a>
                 <a href="/user">
@@ -103,6 +106,7 @@
             <div class="content">
                 @yield('content')
             </div>
+            
         </div>
     </div>
 </body>
