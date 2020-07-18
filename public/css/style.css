@@ -83,3 +83,7 @@
 .create-project fieldset {
     border: 0;
 }
+
+.chart-container {
+    display: flex;
+}

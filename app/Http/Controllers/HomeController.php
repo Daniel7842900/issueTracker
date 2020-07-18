@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Charts\DashboardChart;
+use App\Charts\BarChart;
+use App\Charts\PieChart;
+use App\Ticket;
 
 class HomeController extends Controller
 {
@@ -25,11 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $chart = new DashboardChart();
+        //$barChart = new BarChart;
+        //dd($barChart);
+        //$barChart->labels(['one', 'two', 'three']);
+        //$pieChart = new PieChart;
+        //dd($pieChart);
         
         return view('home', [
-            'chart' => $chart,
+            //'barChart' => $barChart,
+            //'pieChart' -> $pieChart,
         ]);
     }
 

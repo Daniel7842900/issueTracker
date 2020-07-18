@@ -80,10 +80,6 @@
 
         <div class="py-4 container-fluid">
             <div id="sidebar" class="sidebar float-left">
-                <div class="text-center">
-                    <h5>Welcome,</h5>
-                    <h5>name</h5>
-                </div>
                 <div class="items-container">
                 <a href="/home">
                     <h6 class="menu-item"><i class="fas fa-chart-line"></i>Dashboard</h6>
