@@ -38,8 +38,10 @@ class UserController extends Controller
                         ->leftjoin('project_user', 'users.id', 'project_user.user_id')
                         ->leftjoin('projects', 'project_user.project_id', 'projects.id')
                         //->select('projects.title', 'users.id', 'project_user.project_id')
-                        ->select('*')
+                        ->select('users.id', 'users.name', 'users.email', 'users.role_id', 'roles.type', 'projects.title')
                         ->get();
+
+        //dd($users_info);
 
         $users_roles = DB::table('users')
                         ->leftjoin('roles', 'roles.id', '=', 'users.role_id')
@@ -68,6 +70,7 @@ class UserController extends Controller
 
     public function update(Request $request) {
 
+        //dd($request->input());
         User::where('id', $request->userId)
         ->update(['role_id'=>$request->role_id]);
         print_r($request->input());

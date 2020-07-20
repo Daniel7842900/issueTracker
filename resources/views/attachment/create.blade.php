@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12">
     <form action="{{ route('attachment.store', ['id' => $ticket->id]) }}" method="POST"
         enctype="multipart/form-data">
         @csrf

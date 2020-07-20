@@ -1,16 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
-        <p>Ticket Attachment</p>
-    </div>
-</div>
-<hr>
-<div class="row">
     @include('attachment.create', [$ticket->id])
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <label for="">Ticket Attachments</label>
-    </div>
 </div>
 <hr>
 <div class="row">

@@ -87,3 +87,16 @@
 .chart-container {
     display: flex;
 }
+
+/* .ticket-cursors {
+    display: inline;
+} */
+
+.ticket-back {
+    display: inline;
+}
+
+.ticket-edit {
+    display: inline;
+    float: right;
+}
