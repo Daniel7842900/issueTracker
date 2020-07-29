@@ -21,23 +21,25 @@ class TicketController extends Controller
                         ->select('projects.title')
                         ->first();
 
-        $submitter = DB::table('users')
+        //dd($project);
+        $submitters = DB::table('users')
                         ->join('tickets', 'tickets.submitter_id', 'users.id')
-                        ->select('users.name')
-                        ->first();
+                        ->select('users.name', 'tickets.submitter_id', 'tickets.id')
+                        ->get();
 
+        
         $assignees = DB::table('users')
                         ->join('tickets', 'tickets.assignee_id', 'users.id')
                         ->select('tickets.id', 'users.name')
                         ->get();
 
-        //dd($submitter);
+        //dd($submitters);
         //dd($assignees);
 
         return view('ticket.index', [
             'tickets' => $tickets,
             'project' => $project,
-            'submitter' => $submitter,
+            'submitters' => $submitters,
             'assignees' => $assignees,
         ]);
     }

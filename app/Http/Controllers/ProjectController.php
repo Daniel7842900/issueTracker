@@ -188,6 +188,10 @@ class ProjectController extends Controller
 
         $project = Project::findOrFail($id);
         //dd($project);
+
+        //this project->users works!
+        //dd($project->users);
+        
         $assigned_members = DB::table('users')
                                 ->leftjoin('roles', 'roles.id', 'users.role_id')
                                 ->join('project_user', 'project_user.user_id', 'users.id')
