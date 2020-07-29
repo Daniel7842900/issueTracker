@@ -29,7 +29,7 @@ class ProjectController extends Controller
     {
         $projects = Project::with(['users'])->get();
 
-        //dd($projects->users);
+        //dd($projects);
         
         return view('project.index', [
             'projects' => $projects,
@@ -187,7 +187,7 @@ class ProjectController extends Controller
     public function show($id) {
 
         $project = Project::findOrFail($id);
-
+        //dd($project);
         $assigned_members = DB::table('users')
                                 ->leftjoin('roles', 'roles.id', 'users.role_id')
                                 ->join('project_user', 'project_user.user_id', 'users.id')

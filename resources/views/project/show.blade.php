@@ -9,7 +9,20 @@
     <div class="row">
         <div class="col-md-12">
             <a href="{{ route('project.index') }}">Back to project list</a>
+            
+            
+            @if(auth()->user() && auth()->user()->role_id == 1)
             <a href="{{ route('project.edit', $project->id) }}">Edit project</a>
+            @elseif(auth()->user()->role_id == 2)
+                @foreach($project->users as $user)
+                    @if($user->pivot->user_id == auth()->user()->id)
+                    <a href="{{ route('project.edit', $project->id) }}">Edit project</a>
+                    @endif
+                @endforeach
+            @else
+
+            @endif
+
         </div>
     </div>
     <div class="row">

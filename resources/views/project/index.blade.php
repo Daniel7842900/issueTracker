@@ -7,7 +7,9 @@
     <div class="container wrapper-member-role">
         <div class="row">
             <div class="col-md-12">
+                @if(auth()->user() && auth()->user()->role_id == 1)
                 <button><a href="{{ route('project.create') }}">Create New Project</a></button>
+                @endif
                 <div class="card">
                     <div class="card-header">Your Projects</div>
                     <div class="card-body">
@@ -33,12 +35,25 @@
                                         </select>
                                     </td>
                                     <td>{{ $project->created_at }}</td>
-                                    <td>
-                                        <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
-                                    </td>
-                                    <td>
+                                        @if(auth()->user() && auth()->user()->role_id == 1)
+                                        <td>
+                                            <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
+                                        </td>
+                                        @elseif(auth()->user()->role_id == 2)
+                                            @foreach($project->users as $user)
+                                                @if($user->pivot->user_id == auth()->user()->id)
+                                                <td>
+                                                    <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
+                                                </td>
+                                                @endif
+                                            @endforeach
+                                        @else
+
+                                        @endif
+                                        <td>
                                         <button><a href="{{ route('project.show', $project->id) }}">Details</a></button>
-                                    </td>
+                                        </td>
+                                    @if(auth()->user() && auth()->user()->role_id == 1)
                                     <td>
                                         <form action="{{ route('project.destroy', $project->id) }}" method="POST">
                                             @csrf
@@ -46,6 +61,7 @@
                                             <button onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </div>
