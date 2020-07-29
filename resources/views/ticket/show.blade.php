@@ -11,9 +11,17 @@
             <div class="ticket-back">
                 <a href="{{ route('ticket.index') }}">Back To Ticket List</a>
             </div>
+            @if(auth()->user() && auth()->user()->role_id == 1)
             <div class="ticket-edit">
                 <a href="{{ route('ticket.edit', $ticket->id) }}">Edit Ticket</a>
             </div>
+            @elseif(auth()->user()->id == $ticket->submitter_id)
+            <div class="ticket-edit">
+                <a href="{{ route('ticket.edit', $ticket->id) }}">Edit Ticket</a>
+            </div>
+            @else
+
+            @endif
         </div>
     </div>
     <div class="row">
@@ -34,7 +42,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>Assignee</p>
+                        @if(is_null($cur_assignee))
+                        <p>No Member Assigned</p>
+                        @else
                         <p>{{ $cur_assignee->name }}</p>
+                        @endif
                     </div>
                     <div class="col-md-6">
                         <p>Submitter</p>

@@ -161,6 +161,8 @@ class TicketController extends Controller
                             ->select('users.name', 'tickets.assignee_id')
                             ->first();
 
+        //dd($cur_assignee);
+
         $project = DB::table('projects')
                         ->join('tickets', 'tickets.project_id', 'projects.id')
                         ->select('projects.title')
