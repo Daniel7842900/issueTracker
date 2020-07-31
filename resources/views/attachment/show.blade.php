@@ -7,9 +7,21 @@
 </div>
 <div class="container wrapper-member-role">
     <div class="row">
-        <div class="col-md-12">
-            <a href="{{ route('ticket.show', $ticket->id) }}">Back to ticket list</a>
-            <a href="{{ route('attachment.edit', $attachment->id) }}">Edit attachment</a>
+        <div class="col-md-12 attachment-cursors">
+            <div class="attachment-back">
+                <a href="{{ route('ticket.show', $ticket->id) }}">Back to ticket list</a>
+            </div>
+            @if(auth()->user() && auth()->user()->role_id == 1)
+            <div class="attachment-edit">
+                <a href="{{ route('attachment.edit', $attachment->id) }}">Edit attachment</a>
+            </div>
+            @elseif(auth()->user()->id == $uploader->attachment_commenter_id)
+            <div class="attachment-edit">
+                <a href="{{ route('attachment.edit', $attachment->id) }}">Edit attachment</a>
+            </div>
+            @else
+
+            @endif
         </div>
     </div>
     <div class="row">

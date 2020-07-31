@@ -8,23 +8,19 @@
 <hr>
 <div class="row">
     <table>
-        <div class="row">
+        <div>
             <tr>
-                <div class="col-md-6">
-                    <th>Commenter</th>
-                    <th>Message</th>
-                    <th>Created Date</th>
-                </div>
+                <th>Commenter</th>
+                <th>Message</th>
+                <th>Created Date</th>
             </tr>
         </div>
-        <div class="row">
+        <div>
             @foreach($comments as $comment)
             <tr>
-                <div class="col-md-6">
-                    <td>{{ $comment->name }}</td>
-                    <td>{{ $comment->description }}</td>
-                    <td>{{ $comment->created_at }}</td>
-                </div>
+                <td>{{ $comment->name }}</td>
+                <td>{{ $comment->description }}</td>
+                <td>{{ $comment->created_at }}</td>
             </tr>
             @endforeach
         </div>

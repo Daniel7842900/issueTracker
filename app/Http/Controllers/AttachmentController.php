@@ -59,7 +59,8 @@ class AttachmentController extends Controller
 
         $uploader = DB::table('users')
                         ->join('attachments', 'users.id', 'attachments.attachment_commenter_id')
-                        ->select('users.name')
+                        ->select('users.name', 'attachments.attachment_commenter_id')
+                        ->where('attachments.id', '=', $id)
                         ->first();
 
         //dd($uploader);

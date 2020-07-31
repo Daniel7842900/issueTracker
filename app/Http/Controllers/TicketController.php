@@ -185,8 +185,10 @@ class TicketController extends Controller
                         ->select('attachments.id', 'attachments.ticket_id', 'attachments.description',
                                 'attachments.path', 'attachments.attachment_commenter_id',
                                 'attachments.created_at', 'users.name')
+                        ->where('ticket_id', '=', $id)
                         ->get();
         
+        //dd($submitter);
         //dd($attachments);
         //dd($comments);
 

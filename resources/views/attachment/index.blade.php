@@ -19,6 +19,8 @@
                     <td>{{ $attachment->description }}</td>
                     <td>{{ $attachment->created_at }}</td>
                     <td><button><a href="{{ route('attachment.show', [$attachment->id]) }}">Details</a></button></td>
+                    
+                    @if(auth()->user()->role_id == 1)
                     <td>
                         <form action="{{ route('attachment.destroy', [$attachment->id]) }}" method="POST">
                             @csrf
@@ -26,6 +28,17 @@
                             <button onclick="return confirm('Are you sure?')" >Delete</button>
                         </form>
                     </td>
+                    @elseif(auth()->user()->id == $attachment->attachment_commenter_id)
+                    <td>
+                        <form action="{{ route('attachment.destroy', [$attachment->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button onclick="return confirm('Are you sure?')" >Delete</button>
+                        </form>
+                    </td>
+                    @else
+
+                    @endif
                 </tr>
                 @endforeach
             </div>
