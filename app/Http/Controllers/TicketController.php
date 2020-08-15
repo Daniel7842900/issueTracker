@@ -6,22 +6,40 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Ticket;
+use App\Project;
+
 
 
 class TicketController extends Controller
 {
     public function index() {
         $tickets = DB::table('tickets')
+                        ->join('projects', 'tickets.project_id', 'projects.id')
+                        //->leftjoin('project_user', 'projects.id', 'project_user.project_id')
+                        ->select('tickets.title', 'tickets.description', 'tickets.assignee_id',
+                        'tickets.priority', 'tickets.status', 'tickets.created_at', 'tickets.updated_at',
+                        'tickets.submitter_id', 'tickets.type', 'tickets.project_id', 'tickets.id')
                         ->get();
 
+        $project_users = DB::table('project_user')
+                            ->get();
+
+        //dd($project_user);
         //dd($tickets);
 
-        $project = DB::table('projects')
-                        ->join('tickets', 'tickets.project_id', 'projects.id')
-                        ->select('projects.title')
-                        ->first();
+        // $project = DB::table('projects')
+        //                 ->join('tickets', 'tickets.project_id', 'projects.id')
+        //                 ->select('projects.title')
+        //                 ->first();
 
-        //dd($project);
+        $projects = Project::with(['users'])->get();
+        // $projects = DB::table('projects')
+        //                 ->join('tickets', 'tickets.project_id', 'projects.id')
+        //                 ->select('projects.title')
+        //                 ->get();
+
+        //dd($projects);
+        
         $submitters = DB::table('users')
                         ->join('tickets', 'tickets.submitter_id', 'users.id')
                         ->select('users.name', 'tickets.submitter_id', 'tickets.id')
@@ -38,7 +56,8 @@ class TicketController extends Controller
 
         return view('ticket.index', [
             'tickets' => $tickets,
-            'project' => $project,
+            'project_users' => $project_users,
+            'projects' => $projects,
             'submitters' => $submitters,
             'assignees' => $assignees,
         ]);

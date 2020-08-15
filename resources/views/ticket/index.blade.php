@@ -30,7 +30,13 @@
                                 <tr>
                                     <td>{{ $ticket->title }}</td>
                                     <td>{{ $ticket->description }}</td>
-                                    <td>{{ $project->title }}</td>
+                                    @foreach($projects as $project)
+                                        @if($project->id == $ticket->project_id)
+                                        <td>{{ $project->title }}</td>
+                                        @else
+                                        
+                                        @endif
+                                    @endforeach
                                     @foreach($submitters as $submitter)
                                         @if($submitter->id == $ticket->id)
                                         <td>{{ $submitter->name }}</td>
@@ -67,6 +73,7 @@
                                     <td>
                                         <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
                                     </td>
+                                    
                                     @if(auth()->user() && auth()->user()->role_id == 1)
                                     <td>
                                         <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
@@ -83,6 +90,22 @@
                                             <button onclick="return confirm('Are you sure?')">Delete</button>
                                         </form>
                                     </td>
+                                    @else
+                                        @foreach($project_users as $project_user)
+                                            @if(auth()->user()->role_id == 2 && $ticket->project_id == $project_user->project_id &&
+                                             auth()->user()->id == $project_user->user_id)
+                                            <td>
+                                                <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button onclick="return confirm('Are you sure?')">Delete</button>
+                                                </form>
+                                            </td>
+                                                @break
+                                            @else
+
+                                            @endif
+                                        @endforeach
                                     @endif
                                 </tr>
                                 @endforeach
