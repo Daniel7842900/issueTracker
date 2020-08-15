@@ -14,7 +14,7 @@
                 <label for="manager">Choose Project Manager:</label>
                 <select name="manager" id="manager">
                     @foreach($managers as $manager)
-                    <option value="{{ $manager->id }}">{{ $manager->name }}</option>
+                        <option value="{{ $manager->id }}">{{ $manager->name }}</option>
                     @endforeach
                 </select>
                 <fieldset>
@@ -23,7 +23,7 @@
                         <p>No Member is Available</p>
                     @else
                         @foreach($users as $user)
-                        <input type="checkbox" name="members[]" value="{{ $user->id }}">{{ $user->name }}<br/>
+                            <input type="checkbox" name="members[]" value="{{ $user->id }}">{{ $user->name }}<br/>
                         @endforeach
                     @endif
                 </fieldset>

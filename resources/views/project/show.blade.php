@@ -12,11 +12,11 @@
             
             
             @if(auth()->user() && auth()->user()->role_id == 1)
-            <a href="{{ route('project.edit', $project->id) }}">Edit project</a>
+                <a href="{{ route('project.edit', $project->id) }}">Edit project</a>
             @elseif(auth()->user()->role_id == 2)
                 @foreach($project->users as $user)
                     @if($user->pivot->user_id == auth()->user()->id)
-                    <a href="{{ route('project.edit', $project->id) }}">Edit project</a>
+                        <a href="{{ route('project.edit', $project->id) }}">Edit project</a>
                     @endif
                 @endforeach
             @else
@@ -53,11 +53,11 @@
                 </div>
                 <div>
                     @foreach($assigned_members as $assigned_member)
-                    <tr>
-                        <td>{{ $assigned_member->name }}</td>
-                        <td>{{ $assigned_member->email }}</td>
-                        <td>{{ $assigned_member->type }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $assigned_member->name }}</td>
+                            <td>{{ $assigned_member->email }}</td>
+                            <td>{{ $assigned_member->type }}</td>
+                        </tr>
                     @endforeach
                 </div>
             </table>
@@ -79,13 +79,13 @@
                 </div>
                 <div>
                     @foreach($project_tickets as $project_ticket)
-                    <tr>
-                        <td>{{ $project_ticket->title }}</td>
-                        <td>{{ $project_ticket->description }}</td>
-                        <td>{{ $project_ticket->name }}</td>
-                        <td>{{ $project_ticket->status }}</td>
-                        <td>{{ $project_ticket->created_at }}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $project_ticket->title }}</td>
+                            <td>{{ $project_ticket->description }}</td>
+                            <td>{{ $project_ticket->name }}</td>
+                            <td>{{ $project_ticket->status }}</td>
+                            <td>{{ $project_ticket->created_at }}</td>
+                        </tr>
                     @endforeach
                 </div>
             </table>

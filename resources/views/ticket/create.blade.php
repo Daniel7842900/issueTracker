@@ -14,7 +14,7 @@
                 <label for="ticket_project">Choose Project:</label>
                 <select name="ticket_project" id="ticket_project">
                     @foreach($projects as $project)
-                    <option value="{{ $project->id }}">{{ $project->title }}</option>
+                        <option value="{{ $project->id }}">{{ $project->title }}</option>
                     @endforeach
                 </select>
                 <label for="ticket_type">Choose Type:</label>

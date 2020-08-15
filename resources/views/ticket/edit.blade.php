@@ -16,14 +16,14 @@
                 <label for="ticket_project">Choose Project:</label>
                 <select name="ticket_project" id="ticket_project">
                     @foreach($projects as $project)
-                    <option value="{{ $project->id }}">{{ $project->title }}</option>
+                        <option value="{{ $project->id }}">{{ $project->title }}</option>
                     @endforeach
                 </select>
                 <label for="cur_assignee">Current Assignee:</label>
                 @if(is_null($cur_assignee))
-                <p>There is no user assigned</p>
+                    <p>There is no user assigned</p>
                 @else
-                <p>{{ $cur_assignee->name }}</p>
+                    <p>{{ $cur_assignee->name }}</p>
                 @endif
                 <fieldset>
                     <label for="avail_members">Available Members:</label>

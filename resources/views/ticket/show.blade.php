@@ -12,13 +12,13 @@
                 <a href="{{ route('ticket.index') }}">Back To Ticket List</a>
             </div>
             @if(auth()->user() && auth()->user()->role_id == 1)
-            <div class="ticket-edit">
-                <a href="{{ route('ticket.edit', $ticket->id) }}">Edit Ticket</a>
-            </div>
+                <div class="ticket-edit">
+                    <a href="{{ route('ticket.edit', $ticket->id) }}">Edit Ticket</a>
+                </div>
             @elseif(auth()->user()->id == $ticket->submitter_id)
-            <div class="ticket-edit">
-                <a href="{{ route('ticket.edit', $ticket->id) }}">Edit Ticket</a>
-            </div>
+                <div class="ticket-edit">
+                    <a href="{{ route('ticket.edit', $ticket->id) }}">Edit Ticket</a>
+                </div>
             @else
 
             @endif
@@ -43,9 +43,9 @@
                     <div class="col-md-6">
                         <p>Assignee</p>
                         @if(is_null($cur_assignee))
-                        <p>No Member Assigned</p>
+                            <p>No Member Assigned</p>
                         @else
-                        <p>{{ $cur_assignee->name }}</p>
+                            <p>{{ $cur_assignee->name }}</p>
                         @endif
                     </div>
                     <div class="col-md-6">
@@ -97,27 +97,27 @@
                 <hr>
                 <div class="row">
                     @foreach($audits as $audit)
-                    <div class="col-md-12">
-                        @php
-                            $old_value = json_decode($audit->old_values, true);
-                            $new_value = json_decode($audit->new_values, true);
-                            $changed_value = array_diff($old_value, $new_value);
-                            
-                        @endphp
-                        @if(array_key_exists('title', $changed_value))
-                            <label for="">Title:</label>
-                            <span>{{ $old_value['title'] }} -> {{ $new_value['title'] }}</span>
-                            <br>
-                        @endif
-                        @if(array_key_exists('description', $changed_value))
-                            <label for="">Description:</label>
-                            <span>{{ $old_value['description'] }} -> {{ $new_value['description'] }}</span>
-                            <br>
-                        @endif
-                        <label for="">Changed Date:</label>
-                        <span>{{ $new_value['updated_at'] }}</span>
-                        <hr>
-                    </div>
+                        <div class="col-md-12">
+                            @php
+                                $old_value = json_decode($audit->old_values, true);
+                                $new_value = json_decode($audit->new_values, true);
+                                $changed_value = array_diff($old_value, $new_value);
+                                
+                            @endphp
+                            @if(array_key_exists('title', $changed_value))
+                                <label for="">Title:</label>
+                                <span>{{ $old_value['title'] }} -> {{ $new_value['title'] }}</span>
+                                <br>
+                            @endif
+                            @if(array_key_exists('description', $changed_value))
+                                <label for="">Description:</label>
+                                <span>{{ $old_value['description'] }} -> {{ $new_value['description'] }}</span>
+                                <br>
+                            @endif
+                            <label for="">Changed Date:</label>
+                            <span>{{ $new_value['updated_at'] }}</span>
+                            <hr>
+                        </div>
                     @endforeach
                     
                 </div>
