@@ -13,12 +13,16 @@
                 <input type="text" id="proj_name" name="proj_name" value="{{ $project->title }}">
                 <label for="desc">Project description:</label>
                 <input type="text" id="proj_desc" name="proj_desc" value="{{ $project->description }}">
+                @if(auth()->user()->role_id == 1)
                 <label for="manager">Choose Project Manager:</label>
                 <select name="manager" id="manager">
                     @foreach($managers as $manager)
                     <option value="{{ $manager->id }}">{{ $manager->name }}</option>
                     @endforeach
                 </select>
+                @else
+
+                @endif
                 <label for="cur_member">Current Members:</label>
                     @foreach($current_users as $current_user)
                         <input type="checkbox" name="cur_members[]" value="{{ $current_user->id }}">{{ $current_user->name }}<br/>

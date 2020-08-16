@@ -62,6 +62,8 @@ class ProjectController extends Controller
     public function store(Request $request) {
         //print_r($request->input());
 
+        $this->authorize('create', Project::class);
+
         $project = new Project();
 
         $project->title = request('proj_name');
@@ -135,6 +137,10 @@ class ProjectController extends Controller
     public function update(Request $request, $id) {
         // print_r($request->input());
         // print_r($id);
+        $project = Project::findOrFail($id);
+        //dd($project);
+
+        $this->authorize('update', $project);
 
         Project::where('id', $id)
                 ->update([
@@ -142,19 +148,26 @@ class ProjectController extends Controller
                     'description'=>$request->proj_desc
                     ]);
 
+        // $current_manager = DB::table('users')
+        //                         ->leftjoin('roles', 'users.role_id', 'roles.id')
+        //                         ->join('project_user', 'project_user.user_id', 'users.id')
+        //                         ->select('users.id', 'users.name')
+        //                         ->where('users.role_id', '=', 2)
+        //                         ->first();
+
         $current_manager = DB::table('users')
-                                ->leftjoin('roles', 'users.role_id', 'roles.id')
                                 ->join('project_user', 'project_user.user_id', 'users.id')
                                 ->select('users.id', 'users.name')
-                                ->where('users.role_id', '=', 2)
+                                ->where('project_user.project_id', $project->id)
                                 ->first();
 
-        //dd($current_manager->id);
+        //dd($current_manager);
         //dd($request->input());
-
+        //dd($project->id);
         DB::table('users')
             ->join('project_user', 'project_user.user_id', 'users.id')
             ->where('project_user.user_id', $current_manager->id)
+            ->where('project_user.project_id', $project->id)
             ->update([
                 'project_user.user_id'=>$request->manager
             ]);
@@ -170,7 +183,7 @@ class ProjectController extends Controller
         } else {
         }
         
-        $project = Project::findOrFail($id);
+        
 
         //dd($project->id);
 
@@ -218,7 +231,12 @@ class ProjectController extends Controller
     }
 
     public function destroy($id) {
+
+
         $project = Project::findOrFail($id);
+
+        $this->authorize('delete', $project);
+
         //dd($project);
         $project->users()->detach();
         $project->delete();

@@ -109,3 +109,7 @@
     display: inline;
     float: right;
 }
+
+.card-body {
+    text-align: center;
+}
