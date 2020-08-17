@@ -110,6 +110,20 @@
     float: right;
 }
 
-.card-body {
-    text-align: center;
+.project-back {
+    display: inline;
+}
+
+.project-edit {
+    display: inline;
+    float: right;
+}
+
+.project-member-card {
+    max-height: 400px;
+    overflow: hidden;
+}
+
+#project-member-table {
+    max-height: 385px;
 }

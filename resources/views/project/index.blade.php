@@ -20,13 +20,11 @@
                                     <th>Description</th>
                                     <th>Members</th>
                                     <th>Created Date</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
                                 </tr>
                             </div>
                             <div>
                                 @foreach($projects as $project)
+                                
                                     <tr>
                                         <td>{{ $project->title }}</td>
                                         <td>{{ $project->description }}</td>

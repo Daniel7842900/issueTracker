@@ -164,13 +164,16 @@ class ProjectController extends Controller
         //dd($current_manager);
         //dd($request->input());
         //dd($project->id);
-        DB::table('users')
+        if($request->has('manager')) {
+            DB::table('users')
             ->join('project_user', 'project_user.user_id', 'users.id')
             ->where('project_user.user_id', $current_manager->id)
             ->where('project_user.project_id', $project->id)
             ->update([
                 'project_user.user_id'=>$request->manager
             ]);
+        }
+        
 
         if($request->has('avail_members')) {
             for($i = 0; $i < count($request->avail_members); $i++) {
@@ -207,10 +210,12 @@ class ProjectController extends Controller
         
         $assigned_members = DB::table('users')
                                 ->leftjoin('roles', 'roles.id', 'users.role_id')
-                                ->join('project_user', 'project_user.user_id', 'users.id')
-                                ->select('users.name', 'users.email', 'roles.type')
-                                ->where('users.role_id', '=', 2)
-                                ->orWhere('users.role_id', '=', 3)
+                                ->leftjoin('project_user', 'project_user.user_id', 'users.id')
+                                ->select('*')
+                                //->select('users.name', 'users.email', 'roles.type')
+                                ->where('project_user.project_id', '=', $id)
+                                ->where('users.role_id', '!=', 1)
+                                //->orWhere('users.role_id', '=', 3)
                                 ->get();
 
         $project_tickets = DB::table('tickets')
