@@ -120,10 +120,23 @@
 }
 
 .project-member-card {
-    max-height: 400px;
+    max-height: 500px;
     overflow: hidden;
 }
 
-#project-member-table {
+/* #project-member-table {
     max-height: 385px;
+} */
+
+.project-ticket-card {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+/* #project-ticket-table {
+    max-height: 385px;
+} */
+
+.function-buttons {
+    display: flex;
 }

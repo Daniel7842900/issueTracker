@@ -42,7 +42,7 @@
                 Assigned Member
             </div>
             <div class="card-body">
-                <table id="project-member-table" class="table table-striped table-bordered" style="width:100%">
+                <table id="project-member-table" class="display table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -66,9 +66,9 @@
             <div class="card-header">
                 Tickets for {{ $project->title }}
             </div>
-            <div class="card-body project-ticket-card-body">
-                <table class="table">
-                    <div>
+            <div class="card-body">
+                <table id="project-ticket-table" class="display table-striped table-bordered compact" style="width:100%">
+                    <thead>
                         <tr>
                             <th>Title</th>
                             <th>Description</th>
@@ -76,18 +76,19 @@
                             <th>Status</th>
                             <th>Created Date</th>
                         </tr>
-                    </div>
-                    <div>
+                    </thead>
+                    <tbody>
                         @foreach($project_tickets as $project_ticket)
                             <tr>
+                            
                                 <td>{{ $project_ticket->title }}</td>
                                 <td>{{ $project_ticket->description }}</td>
                                 <td>{{ $project_ticket->name }}</td>
                                 <td>{{ $project_ticket->status }}</td>
-                                <td>{{ $project_ticket->created_at }}</td>
+                                <td>{{ date('m-d-Y', strtotime($project_ticket->created_at)) }}</td>
                             </tr>
                         @endforeach
-                    </div>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -97,7 +98,7 @@
 
 <script>
 
-    $('#project-member-table').DataTable({
+    $('table.display').DataTable({
         "lengthMenu": [[5], [5]]
     });
 

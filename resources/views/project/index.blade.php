@@ -13,18 +13,18 @@
                 <div class="card">
                     <div class="card-header">Your Projects</div>
                     <div class="card-body">
-                        <table class="table table-hover">
-                            <div>
+                        <table id="project-table" class="table table-striped table-bordered compact" style="width:100%">
+                            <thead>
                                 <tr>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Members</th>
                                     <th>Created Date</th>
+                                    <th></th>
                                 </tr>
-                            </div>
-                            <div>
+                            </thead>
+                            <tbody>
                                 @foreach($projects as $project)
-                                
                                     <tr>
                                         <td>{{ $project->title }}</td>
                                         <td>{{ $project->description }}</td>
@@ -35,25 +35,22 @@
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td>{{ $project->created_at }}</td>
-                                        <td>
+                                        <td>{{ date('m-d-Y', strtotime($project->created_at)) }}</td>
+                                        <td class="function-buttons">
                                             <button><a href="{{ route('project.edit', $project->id) }}">Edit</a></button>
-                                        </td>
-                                        <td>
                                             <button><a href="{{ route('project.show', $project->id) }}">Details</a></button>
-                                        </td>
-                                        @can('delete', $project)
-                                        <td>
+                                            @can('delete', $project)
                                             <form action="{{ route('project.destroy', $project->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button onclick="return confirm('Are you sure?')">Delete</button>
                                             </form>
+                                            @endcan
                                         </td>
-                                        @endcan
+                                        
                                     </tr>
                                 @endforeach
-                            </div>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -61,4 +58,19 @@
             </div>
         </div>
     </div>
+
+<script>
+
+    $('#project-table').DataTable({
+        "lengthMenu": [[5], [5]],
+        "columns": [
+            {"width": "20%"},
+            {"width": "20%"},
+            {"width": "20%"},
+            {"width": "20%"},
+            {"width": "20%"},
+        ]
+    });
+
+</script>
 @endsection
