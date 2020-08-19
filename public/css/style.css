@@ -1,5 +1,5 @@
 .sidebar {
-    width: 200px;
+    width: 170px;
     background-color: rgb(128, 128, 128);
     padding: 20px 0 0 0;
     height: 100vh;
@@ -19,7 +19,6 @@
 }
 
 .menu-item {
-    width: 200px;
     padding: 10px 0 10px 20px;
     transition: background-color 0.5s;
     cursor: pointer;
@@ -139,4 +138,13 @@
 
 .function-buttons {
     display: flex;
+}
+
+.ticket-card {
+    max-height: 1200px;
+    overflow: hidden;
+}
+
+#ticket-comment-table {
+    width: 500px;
 }

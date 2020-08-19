@@ -11,9 +11,9 @@
                 <div class="card">
                     <div class="card-header">Your Tickets</div>
                     <div class="card-body">
-                        <table>
-                            <div>
-                                <tr style="border-bottom:1px solid black">
+                        <table id="ticket-table" class="table-striped table-bordered compact" style="width:100%">
+                            <thead>
+                                <tr>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Project</th>
@@ -23,9 +23,10 @@
                                     <th>Status</th>
                                     <th>Created Date</th>
                                     <th>Updated Date</th>
+                                    <th></th>
                                 </tr>
-                            </div>
-                            <div>
+                            </thead>
+                            <tbody>
                                 @foreach($tickets as $ticket)
                                     <tr>
                                         <td>{{ $ticket->title }}</td>
@@ -59,61 +60,72 @@
                                         <td>{{ $ticket->status }}</td>
                                         <td>{{ date('n-j-Y', strtotime($ticket->created_at)) }}</td>
                                         <td>{{ date('n-j-Y', strtotime($ticket->updated_at)) }}</td>
-                                        @if(auth()->user() && auth()->user()->role_id == 1)
-                                            <td>
+                                        <td class="function-buttons">
+                                            @if(auth()->user() && auth()->user()->role_id == 1)
                                                 <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
-                                            </td>
-                                        @elseif(auth()->user()->id == $ticket->submitter_id)
-                                            <td>
+                                            @elseif(auth()->user()->id == $ticket->submitter_id)
                                                 <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
-                                            </td>
-                                        @else
-
-                                        @endif
-                                        <td>
-                                            <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
-                                        </td>
-                                        
-                                        @if(auth()->user() && auth()->user()->role_id == 1)
-                                            <td>
+                                            @else
+                                                <button disabled>Edit</button>
+                                            @endif
+                                                <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
+                                            @if(auth()->user() && auth()->user()->role_id == 1)
                                                 <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button onclick="return confirm('Are you sure?')">Delete</button>
                                                 </form>
-                                            </td>
-                                        @elseif(auth()->user()->id == $ticket->submitter_id)
-                                            <td>
+                                            @elseif(auth()->user()->id == $ticket->submitter_id)
                                                 <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button onclick="return confirm('Are you sure?')">Delete</button>
                                                 </form>
-                                            </td>
-                                        @else
-                                            @foreach($project_users as $project_user)
-                                                @if(auth()->user()->role_id == 2 && $ticket->project_id == $project_user->project_id &&
-                                                auth()->user()->id == $project_user->user_id)
-                                                    <td>
+                                            @else
+                                                @foreach($project_users as $project_user)
+                                                    @if(auth()->user()->role_id == 2 && $ticket->project_id == $project_user->project_id &&
+                                                    auth()->user()->id == $project_user->user_id)
                                                         <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button onclick="return confirm('Are you sure?')">Delete</button>
                                                         </form>
-                                                    </td>
                                                         @break
-                                                @else
-
-                                                @endif
-                                            @endforeach
-                                        @endif
+                                                    @else
+                                                        <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button disabled>Delete</button>
+                                                        </form>
+                                                        @break
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
-                            </div>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<script>
+    $('#ticket-table').DataTable({
+        "lengthMenu": [[5], [5]],
+        "columns": [
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+            {"width": "10%"},
+        ]
+    });
+</script>
 @endsection

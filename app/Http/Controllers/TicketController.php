@@ -274,6 +274,7 @@ class TicketController extends Controller
 
     public function destroy($id) {
         $ticket = Ticket::findOrFail($id);
+        $this->authorize('delete', $ticket);
         //dd($ticket);
         $ticket->delete();
 

@@ -3,7 +3,6 @@
         enctype="multipart/form-data">
         @csrf
         <div>
-            <p>Select an attachment</p>
             <input name="attachment_img" type="file">
         </div>
         <hr>

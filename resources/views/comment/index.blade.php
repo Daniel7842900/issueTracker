@@ -7,24 +7,34 @@
 </div>
 <hr>
 <div class="row">
-    <table>
-        <div>
+    <table id="ticket-comment-table" class="table-striped table-bordered compact">
+        <thead>
             <tr>
                 <th>Commenter</th>
                 <th>Message</th>
                 <th>Created Date</th>
             </tr>
-        </div>
-        <div>
+        </thead>
+        <tbody>
             @foreach($comments as $comment)
             <tr>
                 <td>{{ $comment->name }}</td>
                 <td>{{ $comment->description }}</td>
-                <td>{{ $comment->created_at }}</td>
+                <td>{{ date('n-j-Y g:i A', strtotime($comment->created_at)) }}</td>
             </tr>
+            
             @endforeach
-        </div>
+        </tbody>
     </table>
 </div>
 
-
+<script>
+    $('#ticket-comment-table').DataTable({
+        "lengthMenu": [[5], [5]],
+        "columns": [
+            {"width": "33%"},
+            {"width": "33%"},
+            {"width": "33%"}
+        ]
+    });
+</script>
