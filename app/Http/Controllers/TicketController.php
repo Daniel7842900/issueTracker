@@ -9,7 +9,6 @@ use App\Ticket;
 use App\Project;
 
 
-
 class TicketController extends Controller
 {
     public function index() {
@@ -182,10 +181,13 @@ class TicketController extends Controller
 
         //dd($cur_assignee);
 
-        $project = DB::table('projects')
+        //dd($ticket);
+        $projects = DB::table('projects')
                         ->join('tickets', 'tickets.project_id', 'projects.id')
-                        ->select('projects.title')
-                        ->first();
+                        ->select('projects.title', 'projects.id')
+                        ->get();
+
+        //dd($projects);
 
         $submitter = DB::table('users')
                         ->join('tickets', 'tickets.submitter_id', 'users.id')
@@ -210,6 +212,8 @@ class TicketController extends Controller
         //dd($submitter);
         //dd($attachments);
         //dd($comments);
+
+        //$audits = $ticket->audits;
 
         $audits = DB::table('audits')
                     ->select('*')
@@ -258,7 +262,7 @@ class TicketController extends Controller
 
         return view('ticket.show', [
             'ticket' => $ticket,
-            'project' => $project,
+            'projects' => $projects,
             'cur_assignee' => $cur_assignee,
             'submitter' => $submitter,
             'comments' => $comments,
