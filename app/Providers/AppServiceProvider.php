@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use ConsoleTVs\Charts\Registrar as Charts;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Schema\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
             \App\Charts\BarChart::class,
             \App\Charts\PieChart::class
         ]);
+        Builder::defaultStringLength(191);
     }
 }
