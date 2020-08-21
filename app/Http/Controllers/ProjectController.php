@@ -28,8 +28,6 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with(['users'])->get();
-
-        //dd($projects);
         
         return view('project.index', [
             'projects' => $projects,
@@ -44,14 +42,12 @@ class ProjectController extends Controller
                         ->where('users.role_id', '=', 2)
                         ->get();
         
-        //var_dump($managers);
         $users = DB::table('users')
                     ->leftjoin('roles', 'users.role_id', 'roles.id')
                     ->select('users.id', 'users.name')
                     ->where('users.role_id', '=', 3)
                     ->get();
 
-        //error_log($users);
         return view('project.create', [
             'managers' => $managers,
             'users' => $users,
@@ -60,39 +56,34 @@ class ProjectController extends Controller
     }
 
     public function store(Request $request) {
-        //print_r($request->input());
 
+        // Activating authorization for creating a project
         $this->authorize('create', Project::class);
 
-        $project = new Project();
+        // Validating data request for creating a project
+        $data = request()->validate([
+            'title' => 'required|min:5|max:50',
+            'description' => 'required|min:5|max:100'
+        ]);
 
-        $project->title = request('proj_name');
-        $project->description = request('proj_desc');
-
-        $project->save();
+        $project = \App\Project::create($data);
+        
         $currentId = $project->id;
 
         $manager = request('manager');
         $users = request('members');
         
-        // echo "this is id";
-        // echo($currentId);
-        // echo "this is cur proj";
-        // echo($current_Project);
-        // var_dump($users);
         $current_Project = Project::findOrFail($currentId);
         $current_Project->users()->attach($manager);
 
-        foreach($users as $user) {
-            echo "this is single user";
-            echo $user;
-            // $current_Project = Project::findOrFail($currentId);
-            $current_Project->users()->attach($user);
+        // If a member/members are selected, assign to a specific project
+        if($request->has('members')) {
+            foreach($users as $user) {
+                $current_Project->users()->attach($user);
+            }
+        } else {
+
         }
-
-        
-
-        // $project->save();
 
         return redirect('/project')->with('mssg', 'Project is created');
     }
@@ -114,8 +105,6 @@ class ProjectController extends Controller
                     ->whereNull('project_user.project_id')
                     ->get();
 
-        //dd($users);
-
         $current_users = DB::table('users')
                             ->leftjoin('roles', 'users.role_id', 'roles.id')
                             ->join('project_user', 'project_user.user_id', 'users.id')
@@ -123,8 +112,6 @@ class ProjectController extends Controller
                             ->where('users.role_id', '=', 3)
                             ->where('project_user.project_id', '=', $id)
                             ->get();
-
-        //dd($current_users);
 
         return view('project.edit', [
             'project' => $project,
@@ -135,25 +122,23 @@ class ProjectController extends Controller
     }
     
     public function update(Request $request, $id) {
-        // print_r($request->input());
-        // print_r($id);
-        $project = Project::findOrFail($id);
-        //dd($project);
 
+        // Validating data request for updating a project
+        $data = request()->validate([
+            'title' => 'required|min:5|max:50',
+            'description' => 'required|min:5|max:100'
+        ]);
+        
+        $project = Project::findOrFail($id);
+
+        // Activating authorization for updating a project
         $this->authorize('update', $project);
 
         Project::where('id', $id)
                 ->update([
-                    'title'=>$request->proj_name,
-                    'description'=>$request->proj_desc
+                    'title'=>$request->title,
+                    'description'=>$request->description
                     ]);
-
-        // $current_manager = DB::table('users')
-        //                         ->leftjoin('roles', 'users.role_id', 'roles.id')
-        //                         ->join('project_user', 'project_user.user_id', 'users.id')
-        //                         ->select('users.id', 'users.name')
-        //                         ->where('users.role_id', '=', 2)
-        //                         ->first();
 
         $current_manager = DB::table('users')
                                 ->join('project_user', 'project_user.user_id', 'users.id')
@@ -161,9 +146,6 @@ class ProjectController extends Controller
                                 ->where('project_user.project_id', $project->id)
                                 ->first();
 
-        //dd($current_manager);
-        //dd($request->input());
-        //dd($project->id);
         if($request->has('manager')) {
             DB::table('users')
             ->join('project_user', 'project_user.user_id', 'users.id')
@@ -174,7 +156,6 @@ class ProjectController extends Controller
             ]);
         }
         
-
         if($request->has('avail_members')) {
             for($i = 0; $i < count($request->avail_members); $i++) {
                 DB::table('project_user')
@@ -185,10 +166,6 @@ class ProjectController extends Controller
             }
         } else {
         }
-        
-        
-
-        //dd($project->id);
 
         if($request->has('cur_members')) {
             for($j = 0; $j < count($request->cur_members); $j++) {
@@ -203,7 +180,6 @@ class ProjectController extends Controller
     public function show($id) {
 
         $project = Project::findOrFail($id);
-        //dd($project);
 
         //this project->users works!
         //dd($project->users);
@@ -212,10 +188,8 @@ class ProjectController extends Controller
                                 ->leftjoin('roles', 'roles.id', 'users.role_id')
                                 ->leftjoin('project_user', 'project_user.user_id', 'users.id')
                                 ->select('*')
-                                //->select('users.name', 'users.email', 'roles.type')
                                 ->where('project_user.project_id', '=', $id)
                                 ->where('users.role_id', '!=', 1)
-                                //->orWhere('users.role_id', '=', 3)
                                 ->get();
 
         $project_tickets = DB::table('tickets')
@@ -224,10 +198,6 @@ class ProjectController extends Controller
                                 ->select('tickets.title', 'tickets.description', 'tickets.created_at', 'users.name', 'tickets.status')
                                 ->get();
 
-        //dd($project_tickets);
-        
-        
-        //dd($assigned_members);
         return view('project.show',[
             'project' => $project,
             'assigned_members' => $assigned_members,
@@ -237,12 +207,11 @@ class ProjectController extends Controller
 
     public function destroy($id) {
 
-
         $project = Project::findOrFail($id);
 
+        // Activating authorization for deleting a project
         $this->authorize('delete', $project);
 
-        //dd($project);
         $project->users()->detach();
         $project->delete();
 

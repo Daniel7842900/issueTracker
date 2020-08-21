@@ -7,10 +7,12 @@
             <h1>Create a New Project</h1>
             <form action="/project" method="POST">
                 @csrf
-                <label for="name">Project name:</label>
-                <input type="text" id="proj_name" name="proj_name">
+                <label for="name">Project title:</label>
+                <input type="text" id="title" name="title" autocomplete="off">
+                @error('title') {{$message}} @enderror
                 <label for="desc">Project description:</label>
-                <input type="text" id="proj_desc" name="proj_desc">
+                <input type="text" id="description" name="description">
+                @error('description') {{$message}} @enderror
                 <label for="manager">Choose Project Manager:</label>
                 <select name="manager" id="manager">
                     @foreach($managers as $manager)

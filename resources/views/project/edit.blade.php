@@ -9,10 +9,12 @@
             <form action="{{ route('project.update', ['id' => $project->id]) }}" method="POST">
                 @csrf
                 @method('PATCH')
-                <label for="name">Project name:</label>
-                <input type="text" id="proj_name" name="proj_name" value="{{ $project->title }}">
+                <label for="name">Project title:</label>
+                <input type="text" id="title" name="title" value="{{ $project->title }}">
+                @error('title') {{$message}} @enderror
                 <label for="desc">Project description:</label>
-                <input type="text" id="proj_desc" name="proj_desc" value="{{ $project->description }}">
+                <input type="text" id="description" name="description" value="{{ $project->description }}">
+                @error('description') {{$message}} @enderror
                 @if(auth()->user()->role_id == 1)
                 <label for="manager">Choose Project Manager:</label>
                 <select name="manager" id="manager">
