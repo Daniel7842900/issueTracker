@@ -12,6 +12,11 @@ class Ticket extends Model implements Auditable
 
     protected $table = 'tickets';
 
+    protected $fillable = [
+        'title',
+        'description'
+    ];
+
     public function comments() {
         return $this->hasMany('App\Comment');
     }

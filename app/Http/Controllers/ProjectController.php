@@ -66,7 +66,7 @@ class ProjectController extends Controller
             'description' => 'required|min:5|max:100'
         ]);
 
-        $project = \App\Project::create($data);
+        $project = Project::create($data);
         
         $currentId = $project->id;
 

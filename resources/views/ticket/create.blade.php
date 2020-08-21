@@ -8,9 +8,9 @@
             <form action="/ticket" method="POST">
                 @csrf
                 <label for="ticket_title">Ticket title:</label>
-                <input type="text" id="ticket_title" name="ticket_title">
+                <input type="text" id="title" name="title">
                 <label for="ticket_desc">Ticket description:</label>
-                <input type="text" id="ticket_desc" name="ticket_desc">
+                <input type="text" id="description" name="description">
                 <label for="ticket_project">Choose Project:</label>
                 <select name="ticket_project" id="ticket_project">
                     @foreach($projects as $project)

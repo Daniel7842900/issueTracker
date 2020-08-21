@@ -75,17 +75,20 @@ class TicketController extends Controller
     }
 
     public function store(Request $request) {
-        $ticket = new Ticket();
 
-        //dd($request->input());
-        $ticket->title = request('ticket_title');
-        $ticket->description = request('ticket_desc');
+        // Validating data request for creating a ticket
+        $data = request()->validate([
+            'title' => 'required|min:5|max:50',
+            'description' => 'required|min:5|max:100'
+        ]);
+
+        $ticket = Ticket::create($data);
+
         $ticket->project_id = request('ticket_project');
         $ticket->type = request('ticket_type');
         $ticket->priority = request('ticket_priority');
 
         $user_id = Auth::id();
-        //dd($user_id);
 
         $ticket->submitter_id = $user_id;
         $ticket->status = 'open';
