@@ -10,9 +10,9 @@
                 @csrf
                 @method('PATCH')
                 <label for="ticket_title">Ticket title:</label>
-                <input type="text" id="ticket_title" name="ticket_title" value="{{ $ticket->title }}">
+                <input type="text" id="title" name="title" value="{{ $ticket->title }}">
                 <label for="ticket_desc">Ticket description:</label>
-                <input type="text" id="ticket_desc" name="ticket_desc" value="{{ $ticket->description }}">
+                <input type="text" id="description" name="description" value="{{ $ticket->description }}">
                 <label for="ticket_project">Choose Project:</label>
                 <select name="ticket_project" id="ticket_project">
                     @foreach($projects as $project)

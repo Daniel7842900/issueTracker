@@ -131,44 +131,32 @@ class TicketController extends Controller
 
     public function update(Request $request, $id) {
 
-        $ticket = Ticket::findOrFail($id);
+        // Validating data request for creating a ticket
+        request()->validate([
+            'title' => 'required|min:5|max:50',
+            'description' => 'required|min:5|max:100'
+        ]);
 
-        //dd($ticket);
+        $ticket = Ticket::findOrFail($id);
 
         $cur_assignee = DB::table('tickets')
                             ->join('users', 'tickets.assignee_id', 'users.id')
                             ->where('tickets.id', '=', $id)
                             ->select('users.name', 'tickets.assignee_id')
                             ->first();
-        
-        //dd($request->input());
-        //dd($cur_assignee);
 
         if($request->has('new_assignee')) {
             $new_assignee = $request->new_assignee;
             $ticket->assignee_id = $new_assignee;
-            //$ticket->save();
-            // $ticket->
-            // Ticket::where('id', $id)
-            //     ->update([
-            //         'assignee_id' => $request->new_assignee,
-            //     ]);
         } else {
 
         }    
 
-        $ticket->title = $request->ticket_title;
-        $ticket->description = $request->ticket_desc;
+        $ticket->title = $request->title;
+        $ticket->description = $request->description;
         $ticket->project_id = $request->ticket_project;
         $ticket->status = $request->ticket_status;
         $ticket->save();
-        // Ticket::where('id', $id)
-        //         ->update([
-        //             'title' => $request->ticket_title,
-        //             'description' => $request->ticket_desc,
-        //             'project_id' => $request->ticket_project,
-        //         ]);
-
 
         return redirect('/ticket');
     }
