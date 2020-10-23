@@ -2,13 +2,15 @@
 
 @section('content')
     <div id="header-manage-member" class="col-md-4">
-        <h5>Tickets</h5>
+        <h5 class="section_title">Tickets</h5>
     </div>
     <div class="container wrapper-member-role">
         <div class="row">
             <div class="col-md-12">
-                <button><a href="{{ route('ticket.create') }}">Create New Ticket</a></button>
-                <div class="card">
+                <a href="{{ route('ticket.create') }}">
+                    <button class="btn btn-primary create_button">Create New Ticket</button>
+                </a>
+                <div class="card ticket-card">
                     <div class="card-header">Your Tickets</div>
                     <div class="card-body">
                         <table id="ticket-table" class="table-striped table-bordered compact" style="width:100%">
@@ -62,24 +64,24 @@
                                         <td>{{ date('n-j-Y', strtotime($ticket->updated_at)) }}</td>
                                         <td class="function-buttons">
                                             @if(auth()->user() && auth()->user()->role_id == 1)
-                                                <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
+                                                <a href="{{ route('ticket.edit', [$ticket->id]) }}"><button class="btn btn-warning edit_btn">Edit</button></a>
                                             @elseif(auth()->user()->id == $ticket->submitter_id)
-                                                <button><a href="{{ route('ticket.edit', [$ticket->id]) }}">Edit</a></button>
+                                                <a href="{{ route('ticket.edit', [$ticket->id]) }}"><button class="btn btn-warning edit_btn">Edit</button></a>
                                             @else
-                                                <button disabled>Edit</button>
+                                                <button class="btn btn-warning edit_btn" disabled>Edit</button>
                                             @endif
-                                                <button><a href="{{ route('ticket.show', [$ticket->id]) }}">Details</a></button>
+                                                <a href="{{ route('ticket.show', [$ticket->id]) }}"><button class="btn detail_btn">Details</button></a>
                                             @if(auth()->user() && auth()->user()->role_id == 1)
                                                 <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure?')">Delete</button>
+                                                    <button onclick="return confirm('Are you sure?')" class="btn delete_btn">Delete</button>
                                                 </form>
                                             @elseif(auth()->user()->id == $ticket->submitter_id)
                                                 <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button onclick="return confirm('Are you sure?')">Delete</button>
+                                                    <button onclick="return confirm('Are you sure?')" class="btn delete_btn">Delete</button>
                                                 </form>
                                             @else
                                                 @foreach($project_users as $project_user)
@@ -88,14 +90,14 @@
                                                         <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button onclick="return confirm('Are you sure?')">Delete</button>
+                                                            <button onclick="return confirm('Are you sure?')" class="btn delete_btn">Delete</button>
                                                         </form>
                                                         @break
                                                     @else
                                                         <form action="{{ route('ticket.destroy', [$ticket->id]) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button disabled>Delete</button>
+                                                            <button class="btn delete_btn" disabled>Delete</button>
                                                         </form>
                                                         @break
                                                     @endif

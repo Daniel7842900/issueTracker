@@ -13,9 +13,9 @@
                         <div class="card-header">Select Member</div>
                         <div class="card-body">
                             <fieldset>
-                                @foreach($users_info as $user_info)
+                                @foreach($users as $user)
                                 <div>
-                                    <input type="checkbox" name="userId" value="{{ $user_info->id }}">{{ $user_info->name }}
+                                    <input type="checkbox" name="userId" value="{{ $user->id }}">{{ $user->name }}
                                 </div>
                                 @endforeach
                             </fieldset>
@@ -65,11 +65,19 @@
                                         <td>{{ $user_info->type }}</td>
                                         @endif
                                     @endif
-                                    @if($user_info->title != null)
-                                    <td>{{ $user_info->title }}</td>
-                                    @else
-                                    <td>NA</td>
-                                    @endif
+                                    <td>
+                                        <select name="" id="">
+                                            @foreach($users_projects as $user_project)
+                                                @if($user_project->email == $user_info->email)
+                                                    @if($user_project->title != null)
+                                                    <option value="">{{ $user_project->title }}</option>
+                                                    @else
+                                                    <option value="">NA</option>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </div>

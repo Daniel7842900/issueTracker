@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container create-project">
+<div class="container create-edit-format">
     <div class="row">
         <div class="col-md-12">
-            <h1>Edit Project</h1>
+            <h1 class="edit-title">Edit Project</h1>
             <form action="{{ route('project.update', ['id' => $project->id]) }}" method="POST">
                 @csrf
                 @method('PATCH')

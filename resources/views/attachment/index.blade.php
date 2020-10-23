@@ -20,18 +20,18 @@
                         <td>{{ $attachment->description }}</td>
                         <td>{{ $attachment->created_at }}</td>
                         <td class="function-buttons">
-                            <button><a href="{{ route('attachment.show', [$attachment->id]) }}">Details</a></button>
+                            <a href="{{ route('attachment.show', [$attachment->id]) }}"><button class="btn detail_btn">Details</button></a>
                             @if(auth()->user()->role_id == 1)
                                 <form action="{{ route('attachment.destroy', [$attachment->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Are you sure?')" >Delete</button>
+                                    <button onclick="return confirm('Are you sure?')" class="btn delete_btn">Delete</button>
                                 </form>
                             @elseif(auth()->user()->id == $attachment->attachment_commenter_id)
                                 <form action="{{ route('attachment.destroy', [$attachment->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Are you sure?')" >Delete</button>
+                                    <button onclick="return confirm('Are you sure?')" class="btn delete_btn">Delete</button>
                                 </form>
                             @else
                                 <button disabled>Delete</button>

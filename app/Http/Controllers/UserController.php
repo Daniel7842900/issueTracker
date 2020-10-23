@@ -29,16 +29,16 @@ class UserController extends Controller
     public function index()
     {
 
-        // $users = DB::table('users')
-        //             ->select('users.id', 'users.name')
-        //             ->get();
+        $users = DB::table('users')
+                    ->select('users.id', 'users.name')
+                    ->get();
 
         $users_info = DB::table('users')
                         ->leftjoin('roles', 'roles.id', '=', 'users.role_id')
-                        ->leftjoin('project_user', 'users.id', 'project_user.user_id')
-                        ->leftjoin('projects', 'project_user.project_id', 'projects.id')
+                        //->leftjoin('project_user', 'users.id', 'project_user.user_id')
+                        //->leftjoin('projects', 'project_user.project_id', 'projects.id')
                         //->select('projects.title', 'users.id', 'project_user.project_id')
-                        ->select('users.id', 'users.name', 'users.email', 'users.role_id', 'roles.type', 'projects.title')
+                        ->select('users.id', 'users.name', 'users.email', 'users.role_id', 'roles.type')
                         ->get();
 
         //dd($users_info);
@@ -51,8 +51,8 @@ class UserController extends Controller
         $users_projects = DB::table('users')
                             ->leftjoin('project_user', 'users.id', 'project_user.user_id')
                             ->leftjoin('projects', 'project_user.project_id', 'projects.id')
-                            //->select('projects.title', 'users.id', 'project_user.project_id')
-                            ->select('*')
+                            ->select('projects.title', 'users.id', 'project_user.project_id', 'users.email')
+                            //->select('*')
                             ->get();
 
         //dd($users_projects);
@@ -61,7 +61,7 @@ class UserController extends Controller
         //echo $users_roles;
 
         return view('user.index', [
-            // 'users' => $users,
+            'users' => $users,
             'users_roles' => $users_roles,
             'users_projects' => $users_projects,
             'users_info' => $users_info,

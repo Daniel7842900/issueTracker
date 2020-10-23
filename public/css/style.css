@@ -1,6 +1,10 @@
+body {
+    font-family: "Open Sans", sans-serif;
+}
+
 .sidebar {
     width: 170px;
-    background-color: rgb(128, 128, 128);
+    background-color: #989c9a;
     padding: 20px 0 0 0;
     height: 100vh;
     position: relative;
@@ -38,9 +42,9 @@
     display: flex;
 }
 
-#header-manage-member h5 {
+/* #header-manage-member h5 {
     font-size: 2em;
-}
+} */
 
 #role-assgin-button {
     float: right;
@@ -48,38 +52,39 @@
     padding: 0 20px;
 }
 
-.create-project {
+.create-edit-format {
     background: #f7f7f7;
     padding: 20px;
+    padding-top: 0;
 }
 
-.create-project label,
-.create-project select {
+.create-edit-format label,
+.create-edit-format select {
     display: block;
 }
 
-.create-project label {
+.create-edit-format label {
     margin-top: 30px;
 }
 
-.create-project select {
+.create-edit-format select {
     padding: 8px;
     width: 200px;
 }
 
-.create-project input[type="checkbox"] {
+.create-edit-format input[type="checkbox"] {
     margin: 10px;
 }
 
-.create-project input[type="submit"] {
-    background: #5e2195;
+.create-edit-format input[type="submit"] {
+    background: #3490dc;
     padding: 8px 20px;
     color: #fff;
     border: 0;
     margin-top: 20px;
 }
 
-.create-project fieldset {
+.create-edit-format fieldset {
     border: 0;
 }
 
@@ -87,9 +92,9 @@
     display: flex;
 }
 
-/* .ticket-cursors {
-    display: inline;
-} */
+.ticket-cursors {
+    padding-bottom: 1em;
+}
 
 .ticket-back {
     display: inline;
@@ -118,6 +123,16 @@
     float: right;
 }
 
+.project-cursors {
+    padding-bottom: 1em;
+}
+
+.project-detail-card {
+    padding-left: 0px;
+    padding-right: 0px;
+    border: 0px;
+}
+
 .project-member-card {
     max-height: 500px;
     overflow: hidden;
@@ -132,6 +147,10 @@
     overflow: hidden;
 }
 
+.project-member-ticket-row {
+    display: flex;
+}
+
 /* #project-ticket-table {
     max-height: 385px;
 } */
@@ -141,10 +160,98 @@
 }
 
 .ticket-card {
-    max-height: 1200px;
-    overflow: hidden;
+    /* max-height: 1200px;
+    overflow: hidden; */
+    margin-top: 2em;
 }
 
 #ticket-comment-table {
     width: 500px;
+}
+
+.create_button {
+    margin-top: 1em;
+}
+
+.create_button_link {
+    color: white;
+}
+
+.project_card {
+    margin-top: 2em;
+}
+
+.section_title {
+    font-family: "Hammersmith One", sans-serif;
+    font-size: 3em;
+}
+
+.card-header {
+    font-family: "Hammersmith One", sans-serif;
+    font-size: 1.5em;
+    background-color: #418a6c;
+    color: white;
+}
+
+.delete_btn {
+    background-color: #f06954;
+    color: white;
+}
+
+.edit_btn {
+    color: black;
+}
+
+.detail_btn {
+    color: white;
+    background-color: #418a6c;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 0;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.detail-title {
+    font-family: "Hammersmith One", sans-serif;
+    font-size: 2em;
+}
+
+.edit-title {
+    font-family: "Hammersmith One", sans-serif;
+    font-size: 2em;
+}
+
+.create-title {
+    font-family: "Hammersmith One", sans-serif;
+    font-size: 2em;
+}
+
+.ticket-detail-comment-row {
+    display: flex;
+}
+
+.ticket-detail-row {
+    border: 0px;
+}
+
+.ticket-detail-card {
+    padding-left: 0px;
+    padding-right: 0px;
+    border: 0px;
+}
+
+.ticket-info-card {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.ticket-comment-card {
+    max-height: 500px;
+    overflow: hidden;
 }

@@ -9,7 +9,7 @@
         <div>
             <p>Leave a description</p>
             <input type="text" id="attachment_description" name="attachment_description">
-            <input type="submit">
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
     

@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="header-manage-member" class="col-md-4">
-    <h5>Details for {{ $ticket->title }}</h5>
+    <h5 class="detail-title">Details for {{ $ticket->title }}</h5>
 </div>
 <div class="container wrapper-member-role">
     <div class="row">
@@ -24,8 +24,8 @@
             @endif
         </div>
     </div>
-    <div class="row">
-        <div class="card col-md-6">
+    <div class="row ticket-detail-comment-row">
+        <div class="card col-md-6 px-md-2 py-md-2 ticket-info-card ticket-detail-card">
             <div class="card-header">Ticket Detail</div>
             <div class="card-body">
                 <div class="row">
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="card col-md-6 comment">
+        <div class="card col-md-6 px-md-2 py-md-2 comment ticket-comment-card ticket-detail-card">
             <div class="card-header">Ticket Comment</div>
             <div class="card-body">
                 @include('comment.index', ['id' => $ticket->id])
@@ -91,7 +91,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="card col-md-6">
+        <div class="card col-md-6 px-md-2 py-md-2 ticket-history-card ticket-detail-card">
             <div class="card-header">Ticket History</div>
             <div class="card-body">
                 <div class="row">
@@ -165,7 +165,7 @@
                 </div>
             </div>            
         </div>
-        <div class="card col-md-6">
+        <div class="card col-md-6 px-md-2 py-md-2 ticket-attachment-card ticket-detail-card">
             <div class="card-header">Ticket Attachment</div>
             <div class="card-body">
                 @include('attachment.index', ['id' => $ticket->id])

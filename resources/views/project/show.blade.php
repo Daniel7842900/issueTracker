@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="header-manage-member" class="col-md-4">
-    <h5>Details for {{ $project->title }}</h5>
+    <h5 class="detail-title">Details for {{ $project->title }}</h5>
 </div>
 <div class="container wrapper-member-role">
     <div class="row">
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="card col-md-12">
+        <div class="card col-md-12 px-md-2 py-md-2 project-detail-card">
             <div class="card-header">
                 Details
             </div>
@@ -36,8 +36,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="card col-md-6 project-member-card">
+    <div class="row project-member-ticket-row">
+        <div class="card px-md-2 py-md-2 project-member-card project-detail-card">
             <div class="card-header">
                 Assigned Member
             </div>
@@ -62,7 +62,7 @@
                 </table>
             </div>
         </div>
-        <div class="card col-md-6 project-ticket-card">
+        <div class="card px-md-2 py-md-2 project-ticket-card project-detail-card">
             <div class="card-header">
                 Tickets for {{ $project->title }}
             </div>
@@ -92,6 +92,7 @@
                 </table>
             </div>
         </div>
+        
     </div>
     <!-- <p class="mssg">{{ session('mssg') }}</p> -->
 </div>

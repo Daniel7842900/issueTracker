@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container create-project">
+<div class="container create-edit-format">
     <div class="row">
         <div class="col-md-12">
-            <h1>Create a New Project</h1>
+            <h1 class="create-title">Create a New Project</h1>
             <form action="/project" method="POST">
                 @csrf
                 <label for="name">Project title:</label>
