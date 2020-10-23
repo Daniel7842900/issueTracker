@@ -9,10 +9,14 @@
                 @csrf
                 <label for="name">Project title:</label>
                 <input type="text" id="title" name="title" autocomplete="off">
-                @error('title') {{$message}} @enderror
+                @error('title')
+                    <span style="color:red;">{{$message}}</span>
+                @enderror
                 <label for="desc">Project description:</label>
                 <input type="text" id="description" name="description">
-                @error('description') {{$message}} @enderror
+                @error('description')
+                    <span style="color:red;">{{$message}}</span>
+                @enderror
                 <label for="manager">Choose Project Manager:</label>
                 <select name="manager" id="manager">
                     @foreach($managers as $manager)

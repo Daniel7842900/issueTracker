@@ -25,6 +25,11 @@ class CommentController extends Controller
 
     public function store(Request $request, $id) {
 
+        // Validating data request for creating a comment
+        request()->validate([
+            'comment_message' => 'required|min:3|max:50'
+        ]);
+
         $comment = new Comment();
         $user_id = Auth::id();
         $ticket = Ticket::findOrFail($id);

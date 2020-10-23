@@ -23,6 +23,11 @@ class AttachmentController extends Controller
 
     public function store(Request $request, $id) {
 
+        // Validating data request for creating an attachment
+        request()->validate([
+            'attachment_description' => 'required|min:3|max:50'
+        ]);
+
         $attachment = new Attachment();
         $user_id = Auth::id();
         $ticket = Ticket::findOrFail($id);

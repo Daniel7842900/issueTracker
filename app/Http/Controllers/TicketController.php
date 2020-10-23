@@ -107,7 +107,7 @@ class TicketController extends Controller
 
     public function update(Request $request, $id) {
 
-        // Validating data request for creating a ticket
+        // Validating data request for updating a ticket
         request()->validate([
             'title' => 'required|min:5|max:50',
             'description' => 'required|min:5|max:100'

@@ -11,8 +11,14 @@
                 @method('PATCH')
                 <label for="ticket_title">Ticket title:</label>
                 <input type="text" id="title" name="title" value="{{ $ticket->title }}">
+                @error('title')
+                    <span style="color:red;">{{$message}}</span>
+                @enderror
                 <label for="ticket_desc">Ticket description:</label>
                 <input type="text" id="description" name="description" value="{{ $ticket->description }}">
+                @error('description')
+                    <span style="color:red;">{{$message}}</span>
+                @enderror
                 <label for="ticket_project">Choose Project:</label>
                 <select name="ticket_project" id="ticket_project">
                     @foreach($projects as $project)
