@@ -22,7 +22,6 @@ class AttachmentController extends Controller
     }
 
     public function store(Request $request, $id) {
-        //dd($request->input());
 
         $attachment = new Attachment();
         $user_id = Auth::id();
@@ -30,7 +29,6 @@ class AttachmentController extends Controller
 
         $file = $request->file('attachment_img');
 
-        //dd($file);
         $filename = 'attachment-'. time() . '.' . $file->getClientOriginalExtension();
 
         $path = $file->storeAs('attachment', $filename);
@@ -39,7 +37,6 @@ class AttachmentController extends Controller
         $attachment->description = request('attachment_description');
         $attachment->path = $path;
         $attachment->attachment_commenter_id = $user_id;
-        //dd($path);
 
         $attachment->save();
 
@@ -53,8 +50,6 @@ class AttachmentController extends Controller
                     ->select('tickets.id', 'tickets.title')
                     ->first();
 
-        //dd($ticket);
-                    
         $attachment = Attachment::findOrFail($id);
 
         $uploader = DB::table('users')
@@ -63,13 +58,9 @@ class AttachmentController extends Controller
                         ->where('attachments.id', '=', $id)
                         ->first();
 
-        //dd($uploader);
-
         $filePath = $attachment->path;
-        //dd($filePath);
-        //$fullPath = public_path()."/".$filePath;
+
         $content = Storage::disk('public')->get($filePath);
-        //dd($content);
 
         return view('attachment.show', [
             'attachment' => $attachment,
@@ -83,8 +74,6 @@ class AttachmentController extends Controller
     public function edit($id) {
         $attachment = Attachment::findOrFail($id);
         
-        //dd($attachment->attachment_description);
-
         return view('attachment.edit', [
             'attachment' => $attachment,
         ]);
@@ -94,13 +83,9 @@ class AttachmentController extends Controller
 
         $attachment = Attachment::findOrFail($id);
 
-        //dd($request->input());
-
         $file = $request->file('attachment_img');
 
         $user_id = Auth::id();
-
-        //dd($file);
 
         if($file != '') {
             $filename = 'attachment-'. time() . '.' . $file->getClientOriginalExtension();
@@ -114,12 +99,6 @@ class AttachmentController extends Controller
                     ->join('attachments', 'tickets.id', 'attachments.ticket_id')
                     ->select('tickets.id')
                     ->first();
-
-        //dd($ticket);
-
-        // if($request->attachment_description == '') {
-        //     $attachment->description
-        // }
 
         $attachment->ticket_id = $ticket->id;
         $attachment->description = request('attachment_description');
@@ -138,9 +117,7 @@ class AttachmentController extends Controller
                     ->join('attachments', 'tickets.id', 'attachments.ticket_id')
                     ->select('tickets.id')
                     ->first();
-        //dd($attachment);
 
-        //dd($ticket);
         $attachment->delete();
 
         return redirect()->route('ticket.show', [$ticket->id])->with('attachment has been deleted');

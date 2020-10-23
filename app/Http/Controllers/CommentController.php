@@ -17,26 +17,17 @@ class CommentController extends Controller
                         ->select('commenter_id', 'description', 'created_at')
                         ->where('ticket_id', '=', $id)
                         ->get();
-        //dd($ticket);
-        dd($comments);
+
         return view('comment.index', [
-            // 'ticket' => $ticket,
             'comments' => $comments,
         ]);
     }
 
     public function store(Request $request, $id) {
-        //dd($request->input());
-        //dd($id);
+
         $comment = new Comment();
         $user_id = Auth::id();
         $ticket = Ticket::findOrFail($id);
-        //$ticket_id = $ticket->id;
-        //dd($ticket_id);
-
-
-        //dd($user_id);
-        //dd($ticket);
 
         $comment->description = request('comment_message');
         $comment->commenter_id = $user_id;

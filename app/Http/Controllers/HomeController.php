@@ -27,15 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //$barChart = new BarChart;
-        //dd($barChart);
-        //$barChart->labels(['one', 'two', 'three']);
-        //$pieChart = new PieChart;
-        //dd($pieChart);
         
         return view('home', [
-            //'barChart' => $barChart,
-            //'pieChart' -> $pieChart,
         ]);
     }
 

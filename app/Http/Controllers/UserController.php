@@ -35,13 +35,8 @@ class UserController extends Controller
 
         $users_info = DB::table('users')
                         ->leftjoin('roles', 'roles.id', '=', 'users.role_id')
-                        //->leftjoin('project_user', 'users.id', 'project_user.user_id')
-                        //->leftjoin('projects', 'project_user.project_id', 'projects.id')
-                        //->select('projects.title', 'users.id', 'project_user.project_id')
                         ->select('users.id', 'users.name', 'users.email', 'users.role_id', 'roles.type')
                         ->get();
-
-        //dd($users_info);
 
         $users_roles = DB::table('users')
                         ->leftjoin('roles', 'roles.id', '=', 'users.role_id')
@@ -52,13 +47,7 @@ class UserController extends Controller
                             ->leftjoin('project_user', 'users.id', 'project_user.user_id')
                             ->leftjoin('projects', 'project_user.project_id', 'projects.id')
                             ->select('projects.title', 'users.id', 'project_user.project_id', 'users.email')
-                            //->select('*')
                             ->get();
-
-        //dd($users_projects);
-        //dd($users_roles);
-        //dd($users_info);
-        //echo $users_roles;
 
         return view('user.index', [
             'users' => $users,
@@ -70,14 +59,9 @@ class UserController extends Controller
 
     public function update(Request $request) {
 
-        //dd($request->input());
         User::where('id', $request->userId)
         ->update(['role_id'=>$request->role_id]);
         print_r($request->input());
-
-        // $user = User::find($request->userId);
-        // $user->role = $request->role;
-        // $user->save();
 
         return redirect('/user');
     }

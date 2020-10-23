@@ -14,7 +14,6 @@ class TicketController extends Controller
     public function index() {
         $tickets = DB::table('tickets')
                         ->join('projects', 'tickets.project_id', 'projects.id')
-                        //->leftjoin('project_user', 'projects.id', 'project_user.project_id')
                         ->select('tickets.title', 'tickets.description', 'tickets.assignee_id',
                         'tickets.priority', 'tickets.status', 'tickets.created_at', 'tickets.updated_at',
                         'tickets.submitter_id', 'tickets.type', 'tickets.project_id', 'tickets.id')
@@ -23,21 +22,7 @@ class TicketController extends Controller
         $project_users = DB::table('project_user')
                             ->get();
 
-        //dd($project_user);
-        //dd($tickets);
-
-        // $project = DB::table('projects')
-        //                 ->join('tickets', 'tickets.project_id', 'projects.id')
-        //                 ->select('projects.title')
-        //                 ->first();
-
         $projects = Project::with(['users'])->get();
-        // $projects = DB::table('projects')
-        //                 ->join('tickets', 'tickets.project_id', 'projects.id')
-        //                 ->select('projects.title')
-        //                 ->get();
-
-        //dd($projects);
         
         $submitters = DB::table('users')
                         ->join('tickets', 'tickets.submitter_id', 'users.id')
@@ -49,9 +34,6 @@ class TicketController extends Controller
                         ->join('tickets', 'tickets.assignee_id', 'users.id')
                         ->select('tickets.id', 'users.name')
                         ->get();
-
-        //dd($submitters);
-        //dd($assignees);
 
         return view('ticket.index', [
             'tickets' => $tickets,
@@ -66,8 +48,6 @@ class TicketController extends Controller
 
         $projects = DB::table('projects')
                         ->get();
-
-        //dd($projects);
 
         return view('ticket.create',[
             'projects' => $projects,
@@ -109,16 +89,12 @@ class TicketController extends Controller
                             ->select('users.name', 'tickets.assignee_id')
                             ->first();
 
-        //dd($cur_assignee);
-
         $available_users = DB::table('users')
                                 ->join('project_user', 'users.id', 'project_user.user_id')
                                 ->join('tickets', 'tickets.project_id', 'project_user.project_id')
                                 ->where('tickets.id', '=', $id)
                                 ->select('users.name', 'users.id')
                                 ->get();
-
-        //dd($available_users);
 
         return view('ticket.edit', [
             'ticket' => $ticket,
@@ -170,15 +146,10 @@ class TicketController extends Controller
                             ->select('users.name', 'tickets.assignee_id')
                             ->first();
 
-        //dd($cur_assignee);
-
-        //dd($ticket);
         $projects = DB::table('projects')
                         ->join('tickets', 'tickets.project_id', 'projects.id')
                         ->select('projects.title', 'projects.id')
                         ->get();
-
-        //dd($projects);
 
         $submitter = DB::table('users')
                         ->join('tickets', 'tickets.submitter_id', 'users.id')
@@ -199,12 +170,6 @@ class TicketController extends Controller
                                 'attachments.created_at', 'users.name')
                         ->where('ticket_id', '=', $id)
                         ->get();
-        
-        //dd($submitter);
-        //dd($attachments);
-        //dd($comments);
-
-        //$audits = $ticket->audits;
 
         $audits = DB::table('audits')
                     ->select('*')
@@ -217,40 +182,6 @@ class TicketController extends Controller
                     ->latest('updated_at')
                     ->first();
 
-        // $old_assignee_names = DB::table('users')
-        //                         ->join('audits', 'users.id', 'audits.')
-        
-        //$old_value = json_decode($latest_audit->old_values, true);
-        //$new_value = json_decode($latest_audit->new_values, true);
-
-
-        //$changed_value = array_diff($old_value, $new_value);
-
-        //dd($changed_value);
-
-        // if(array_key_exists('assignee_id', $changed_value)) {
-        //     $old_assignee_name = DB::table('users')
-        //                         ->select('users.name')
-        //                         ->where('users.id', '=', $old_value['assignee_id'])
-        //                         ->first();
-        // }
-
-        // if(array_key_exists('assignee_id', $changed_value)) {
-        //     $new_assignee_name = DB::table('users')
-        //                         ->select('users.name')
-        //                         ->where('users.id', '=', $new_value['assignee_id'])
-        //                         ->first();
-        // } else {
-        //     $new_assignee_name = "";
-        // }
-
-        //dd($audits);
-        //dd($latest_audit);
-        //dd($old_value);
-        //dd($new_value);
-
-        //dd($audits[0]->old_values);
-
         return view('ticket.show', [
             'ticket' => $ticket,
             'projects' => $projects,
@@ -260,17 +191,12 @@ class TicketController extends Controller
             'audits' => $audits,
             'latest_audit' => $latest_audit,
             'attachments' => $attachments,
-            // 'old_value' => $old_value,
-            // 'new_value' => $new_value,
-            // 'changed_value' => $changed_value,
-            // 'new_assignee_name' => $new_assignee_name,
         ]);
     }
 
     public function destroy($id) {
         $ticket = Ticket::findOrFail($id);
         $this->authorize('delete', $ticket);
-        //dd($ticket);
         $ticket->delete();
 
         return redirect('/ticket');
