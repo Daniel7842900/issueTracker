@@ -10,12 +10,12 @@
                 @csrf
                 @method('PATCH')
                 <label for="name">Project title:</label>
-                <input type="text" id="title" name="title" value="{{ $project->title }}">
+                <input type="text" id="title" name="title" value="{{ $project->title }}" autocomplete="off">
                 @error('title')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
                 <label for="desc">Project description:</label>
-                <input type="text" id="description" name="description" value="{{ $project->description }}">
+                <input type="text" id="description" name="description" value="{{ $project->description }}" autocomplete="off">
                 @error('description')
                     <span style="color:red;">{{$message}}</span>
                 @enderror

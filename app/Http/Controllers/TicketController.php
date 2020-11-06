@@ -57,13 +57,15 @@ class TicketController extends Controller
     public function store(Request $request) {
 
         // Validating data request for creating a ticket
-        $data = request()->validate([
+        request()->validate([
             'title' => 'required|min:5|max:50',
             'description' => 'required|min:5|max:100'
         ]);
 
-        $ticket = Ticket::create($data);
+        $ticket = new Ticket;
 
+        $ticket->title = request('title');
+        $ticket->description = request('description');
         $ticket->project_id = request('ticket_project');
         $ticket->type = request('ticket_type');
         $ticket->priority = request('ticket_priority');

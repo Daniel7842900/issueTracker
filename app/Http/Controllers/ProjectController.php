@@ -28,9 +28,14 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with(['users'])->get();
+
+        $trashed_projects = Project::onlyTrashed()->latest()->get();
+
+        //dd($trashed_projects);
         
         return view('project.index', [
             'projects' => $projects,
+            'trashed_projects' => $trashed_projects
         ]);
     }
 
@@ -195,7 +200,7 @@ class ProjectController extends Controller
         $project_tickets = DB::table('tickets')
                                 ->join('projects', 'projects.id', 'tickets.project_id')
                                 ->join('users', 'users.id', 'tickets.submitter_id')
-                                ->select('tickets.title', 'tickets.description', 'tickets.created_at', 'users.name', 'tickets.status')
+                                ->select('tickets.title', 'tickets.description', 'tickets.created_at', 'users.name', 'tickets.status', 'projects.id')
                                 ->get();
 
         return view('project.show',[
@@ -205,17 +210,38 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function destroy($id) {
+    public function softDelete($id) {
 
         $project = Project::findOrFail($id);
 
         // Activating authorization for deleting a project
         $this->authorize('delete', $project);
 
-        $project->users()->detach();
+        //$project->users()->detach();
         $project->delete();
 
         return redirect('/project');
+    }
+
+    public function forceDelete($id) {
+
+        $project = Project::onlyTrashed()->findOrFail($id);
+
+        // Activating authorization for deleting a project
+        $this->authorize('delete', $project);
+
+        $project->users()->detach();
+        $project->forceDelete();
+
+        return redirect('/project');
+    }
+
+    public function restore($id) {
+
+        Project::onlyTrashed()->find($id)->restore();
+
+        return redirect('/project');
+
     }
 
 }

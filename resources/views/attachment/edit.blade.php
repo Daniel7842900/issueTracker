@@ -15,7 +15,7 @@
                 </div>
                 <hr>
                 <label for="desc">Attachment description:</label>
-                <input type="text" id="attachment_description" name="attachment_description" value="{{ $attachment->description }}">
+                <input type="text" id="attachment_description" name="attachment_description" value="{{ $attachment->description }}" autocomplete="off">
                 <input type="submit" value="Edit project">
             </form>
         </div>

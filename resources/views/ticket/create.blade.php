@@ -8,12 +8,12 @@
             <form action="/ticket" method="POST">
                 @csrf
                 <label for="ticket_title">Ticket title:</label>
-                <input type="text" id="title" name="title">
+                <input type="text" id="title" name="title" autocomplete="off">
                 @error('title')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
                 <label for="ticket_desc">Ticket description:</label>
-                <input type="text" id="description" name="description">
+                <input type="text" id="description" name="description" autocomplete="off">
                 @error('description')
                     <span style="color:red;">{{$message}}</span>
                 @enderror

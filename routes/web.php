@@ -31,11 +31,15 @@ Route::get('/project/create', 'ProjectController@create')->name('project.create'
 
 Route::get('/project/{id}/edit', 'ProjectController@edit')->name('project.edit');
 
+Route::get('/project/{id}/restore', 'ProjectController@restore')->name('project.restore');
+
 Route::patch('/project/{id}', 'ProjectController@update')->name('project.update');
 
 Route::get('/project/{id}/', 'ProjectController@show')->name('project.show');
 
-Route::delete('/project/{id}', 'ProjectController@destroy')->name('project.destroy');
+Route::delete('/project/{id}/softDelete', 'ProjectController@softDelete')->name('project.softDelete');
+
+Route::delete('/project/{id}/forceDelete', 'ProjectController@forceDelete')->name('project.forceDelete');
 
 Route::post('/project', 'ProjectController@store')->name('project.store');
 
@@ -68,3 +72,7 @@ Route::get('/attachment/{id}/edit', 'AttachmentController@edit')->name('attachme
 Route::patch('/attachment/{id}', 'AttachmentController@update')->name('attachment.update')->middleware('auth');
 
 Route::delete('/attachment/{id}', 'AttachmentController@destroy')->name('attachment.destroy')->middleware('auth');
+
+Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle');
+
+Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');

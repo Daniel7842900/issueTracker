@@ -5,15 +5,13 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="create-title">Create a New Project</h1>
-            <form action="/project" method="POST">
+            <form action="/project" method="POST" id="create-project-form">
                 @csrf
                 <label for="name">Project title:</label>
-                <input type="text" id="title" name="title" autocomplete="off">
-                @error('title')
-                    <span style="color:red;">{{$message}}</span>
-                @enderror
+                <input type="text" id="title" name="title" autocomplete="off" required data-parsley-pattern="[a-zA-Z0-9 ]+" minlength="5" maxlength="50" data-parsley-trigger="keyup">
+                
                 <label for="desc">Project description:</label>
-                <input type="text" id="description" name="description">
+                <input type="text" id="description" name="description" autocomplete="off" required data-parsley-pattern="[a-zA-Z0-9 ]+" minlength="5" maxlength="100" data-parsley-trigger="keyup">
                 @error('description')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
@@ -38,4 +36,10 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $('#create-project-form').parsley();
+
+</script>
 @endsection

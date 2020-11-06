@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="card col-md-12 px-md-2 py-md-2 project-detail-card">
+        <div class="card col-md-6 px-md-2 py-md-2 project-detail-card">
             <div class="card-header">
                 Details
             </div>
@@ -35,9 +35,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row project-member-ticket-row">
-        <div class="card px-md-2 py-md-2 project-member-card project-detail-card">
+        <div class="card col-md-6 px-md-2 py-md-2 project-member-card project-detail-card">
             <div class="card-header">
                 Assigned Member
             </div>
@@ -62,7 +60,9 @@
                 </table>
             </div>
         </div>
-        <div class="card px-md-2 py-md-2 project-ticket-card project-detail-card">
+    </div>
+    <div class="row project-member-ticket-row">
+        <div class="card col-md-12 px-md-2 py-md-2 project-ticket-card project-detail-card">
             <div class="card-header">
                 Tickets for {{ $project->title }}
             </div>
@@ -79,14 +79,15 @@
                     </thead>
                     <tbody>
                         @foreach($project_tickets as $project_ticket)
+                            @if($project_ticket->id == $project->id)
                             <tr>
-                            
                                 <td>{{ $project_ticket->title }}</td>
                                 <td>{{ $project_ticket->description }}</td>
                                 <td>{{ $project_ticket->name }}</td>
                                 <td>{{ $project_ticket->status }}</td>
                                 <td>{{ date('m-d-Y', strtotime($project_ticket->created_at)) }}</td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

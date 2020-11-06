@@ -60,6 +60,7 @@
                         @foreach($projects as $project)
                             @if($project->id == $ticket->project_id)
                                 <p>{{ $project->title }}</p>
+                                @break
                             @else
 
                             @endif
@@ -113,52 +114,63 @@
                                     $new_value = json_decode($audit->new_values, true);
                                     $changed_value = array_diff($old_value, $new_value);
                                 @endphp
-                                <td>
-                                    @if(array_key_exists('title', $changed_value))
-                                        Title:
-                                        <br>
-                                    @endif
-                                    @if(array_key_exists('description', $changed_value))
-                                        Description:
-                                        <br>
-                                    @endif
-                                    @if(array_key_exists('project_id', $changed_value))
-                                        Project_id:
-                                        <br>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(array_key_exists('title', $changed_value))
-                                        {{ $old_value['title'] }}
-                                        <br>
-                                    @endif
-                                    @if(array_key_exists('description', $changed_value))
-                                        {{ $old_value['description'] }}
-                                        <br>
-                                    @endif
-                                    @if(array_key_exists('project_id', $changed_value))
-                                        {{\App\Project::where(['id' => $old_value['project_id']])->pluck('title')->first()}}
-                                        <br>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(array_key_exists('title', $changed_value))
-                                        {{ $new_value['title'] }}
-                                        <br>
-                                    @endif
-                                    @if(array_key_exists('description', $changed_value))
-                                        {{ $new_value['description'] }}
-                                        <br>
-                                    @endif
-                                    @if(array_key_exists('project_id', $changed_value))
-                                        {{ $project->title }}
-                                        <br>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $new_value['updated_at'] }}
-                                </td>
-                                </tr>
+                                @if(!empty($old_value))
+                                    <td>
+                                        @if(array_key_exists('title', $changed_value))
+                                            Title:
+                                            <br>
+                                        @endif
+                                        @if(array_key_exists('description', $changed_value))
+                                            Description:
+                                            <br>
+                                        @endif
+                                        @if(array_key_exists('project_id', $changed_value))
+                                            Project_id:
+                                            <br>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(array_key_exists('title', $changed_value))
+                                            {{ $old_value['title'] }}
+                                            <br>
+                                        @endif
+                                        @if(array_key_exists('description', $changed_value))
+                                            {{ $old_value['description'] }}
+                                            <br>
+                                        @endif
+                                        @if(array_key_exists('project_id', $changed_value))
+                                            {{\App\Project::where(['id' => $old_value['project_id']])->pluck('title')->first()}}
+                                            <br>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(array_key_exists('title', $changed_value))
+                                            {{ $new_value['title'] }}
+                                            <br>
+                                        @endif
+                                        @if(array_key_exists('description', $changed_value))
+                                            {{ $new_value['description'] }}
+                                            <br>
+                                        @endif
+                                        @if(array_key_exists('project_id', $changed_value))
+                                            {{ $project->title }}
+                                            <br>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if(array_key_exists('updated_at', $new_value))
+                                            {{ $new_value['updated_at'] }}
+                                        @else
+
+                                        @endif
+                                    </td>
+                                @else
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                @endif
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

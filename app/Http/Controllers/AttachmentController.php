@@ -53,6 +53,7 @@ class AttachmentController extends Controller
         $ticket = DB::table('tickets')
                     ->join('attachments', 'tickets.id', 'attachments.ticket_id')
                     ->select('tickets.id', 'tickets.title')
+                    ->where('attachments.id', '=', $id)
                     ->first();
 
         $attachment = Attachment::findOrFail($id);
@@ -121,6 +122,7 @@ class AttachmentController extends Controller
         $ticket = DB::table('tickets')
                     ->join('attachments', 'tickets.id', 'attachments.ticket_id')
                     ->select('tickets.id')
+                    ->where('attachments.id', '=', $id)
                     ->first();
 
         $attachment->delete();
