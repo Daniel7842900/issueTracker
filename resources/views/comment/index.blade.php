@@ -37,4 +37,7 @@
             {"width": "33%"}
         ]
     });
+
+    $('#create-comment-form').parsley();
+
 </script>
