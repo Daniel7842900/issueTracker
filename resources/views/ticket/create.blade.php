@@ -5,15 +5,15 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="create-title">Create a New Ticket</h1>
-            <form action="/ticket" method="POST">
+            <form action="/ticket" method="POST" id="create-ticket-form">
                 @csrf
                 <label for="ticket_title">Ticket title:</label>
-                <input type="text" id="title" name="title" autocomplete="off">
+                <input type="text" id="title" name="title" autocomplete="off" required data-parsley-pattern="[a-zA-Z0-9`~!@#$%^&*()-_+'={} ]+" minlength="5" maxlength="50" data-parsley-trigger="keyup">
                 @error('title')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
                 <label for="ticket_desc">Ticket description:</label>
-                <input type="text" id="description" name="description" autocomplete="off">
+                <input type="text" id="description" name="description" autocomplete="off" required data-parsley-pattern="[a-zA-Z0-9`~!@#$%^&*()-_+'={} ]+" minlength="5" maxlength="100" data-parsley-trigger="keyup">
                 @error('description')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
@@ -40,4 +40,10 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $('#create-ticket-form').parsley();
+
+</script>
 @endsection

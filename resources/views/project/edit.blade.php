@@ -6,16 +6,16 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="edit-title">Edit Project</h1>
-            <form action="{{ route('project.update', ['id' => $project->id]) }}" method="POST">
+            <form action="{{ route('project.update', ['id' => $project->id]) }}" method="POST" id="edit-project-form">
                 @csrf
                 @method('PATCH')
                 <label for="name">Project title:</label>
-                <input type="text" id="title" name="title" value="{{ $project->title }}" autocomplete="off">
+                <input type="text" id="title" name="title" value="{{ $project->title }}" autocomplete="off" required data-parsley-pattern="[a-zA-Z0-9`~!@#$%^&*()-_+'={} ]+" minlength="5" maxlength="50" data-parsley-trigger="keyup">
                 @error('title')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
                 <label for="desc">Project description:</label>
-                <input type="text" id="description" name="description" value="{{ $project->description }}" autocomplete="off">
+                <input type="text" id="description" name="description" value="{{ $project->description }}" autocomplete="off" required data-parsley-pattern="[a-zA-Z0-9`~!@#$%^&*()-_+'={} ]+" minlength="5" maxlength="100" data-parsley-trigger="keyup">
                 @error('description')
                     <span style="color:red;">{{$message}}</span>
                 @enderror
@@ -50,4 +50,9 @@
     </div>
 </div>
 
+<script>
+
+    $('#edit-project-form').parsley();
+
+</script>
 @endsection

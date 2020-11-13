@@ -47,6 +47,7 @@ class GoogleController extends Controller
                 return redirect('/home');
             }
         } catch(Exception $e) {
+            throw($e);
             dd($e->getMessage());
         }
     }
