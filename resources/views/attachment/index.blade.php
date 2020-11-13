@@ -55,4 +55,7 @@
         ]
     });
 
+    $('#create-attachment-form').parsley();
+
+
 </script>
