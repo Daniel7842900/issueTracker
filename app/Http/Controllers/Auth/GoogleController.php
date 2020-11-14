@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Socialite;
 use Auth;
 use Exception;
@@ -24,9 +25,11 @@ class GoogleController extends Controller
      * 
      * @return void
      */
-    public function handleGoogleCallback(){
+    public function handleGoogleCallback(Request $request){
         try {
-            $user = Socialite::driver('google')->user();
+
+            //session()->put('state', $request->input('state'));
+            $user = Socialite::driver('google')->stateless()->user();
 
             $findUser = User::where('google_id', $user->id)->first();
 
@@ -46,6 +49,9 @@ class GoogleController extends Controller
 
                 return redirect('/home');
             }
+
+            $user->token;
+
         } catch(Exception $e) {
             throw($e);
             dd($e->getMessage());
